@@ -1,4 +1,4 @@
-import HTMLCanvasElement from './HTMLCanvasElement'
+// import HTMLCanvasElement from './HTMLCanvasElement'
 
 let hasModifiedCanvasPrototype = false
 let hasInit2DContextConstructor = false
@@ -9,7 +9,7 @@ export default function Canvas() {
 
   canvas.type = 'canvas'
 
-  canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
+  // canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
 
   const _getContext = canvas.getContext
 

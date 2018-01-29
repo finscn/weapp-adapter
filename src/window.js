@@ -18,7 +18,8 @@ export location from './location'
 export * from './WindowProperties'
 
 // 暴露全局的 canvas
-const canvas = new Canvas()
+GameGlobal.screencanvas = GameGlobal.screencanvas || new Canvas()
+const canvas = GameGlobal.screencanvas;
 
 export { canvas }
 export { setTimeout }
