@@ -1,4 +1,4 @@
-import { noop } from './util'
+import { noop } from './util/index.js'
 
 // TODO 需要 wx.getSystemInfo 获取更详细信息
 const { platform } = wx.getSystemInfoSync()

@@ -4,8 +4,12 @@ export const innerWidth = screenWidth
 export const innerHeight = screenHeight
 export { devicePixelRatio }
 export const screen = {
+  width: screenWidth,
+  height: screenHeight,
   availWidth: innerWidth,
-  availHeight: innerHeight
+  availHeight: innerHeight,
+  availLeft: 0,
+  availTop: 0,
 }
 export const performance = wx.getPerformance()
 export const ontouchstart = null

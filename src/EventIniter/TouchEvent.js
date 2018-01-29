@@ -1,17 +1,17 @@
-import * as window from '../window'
-import document from '../document'
-import { noop } from '../util/'
+// import * as window from '../window'
+// import document from '../document'
+import { noop } from '../util/index.js'
 
 export default class TouchEvent {
-  target = window.canvas
-  currentTarget = window.canvas
-  touches = []
-  targetTouches = []
-  changedTouches = []
-  preventDefault = noop
-  stopPropagation = noop
   constructor(type) {
     this.type = type
+    this.target = window.canvas
+    this.currentTarget = window.canvas
+    this.touches = []
+    this.targetTouches = []
+    this.changedTouches = []
+    this.preventDefault = noop
+    this.stopPropagation = noop
   }
 }
 

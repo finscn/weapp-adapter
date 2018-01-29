@@ -51,5 +51,3 @@ export default class EventTarget {
     }
   }
 }
-
-export default EventTarget

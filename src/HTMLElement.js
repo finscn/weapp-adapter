@@ -1,5 +1,5 @@
 import Element from './Element'
-import { noop } from './util'
+import { noop } from './util/index.js'
 import { innerWidth, innerHeight } from './WindowProperties'
 
 export default class HTMLElement extends Element {
@@ -49,6 +49,6 @@ export default class HTMLElement extends Element {
   }
 
   focus() {
-    
+
   }
 }

@@ -1,4 +1,4 @@
-import EventTarget from './EventTarget'
+import EventTarget from './EventTarget.js'
 
 export default class Node extends EventTarget {
   constructor() {

@@ -1,9 +1,10 @@
 import * as window from './window'
 import HTMLElement from './HTMLElement'
+import HTMLVideoElement from './HTMLVideoElement'
 import Image from './Image'
 import Audio from './Audio'
 import Canvas from './Canvas'
-import './EventIniter/'
+import './EventIniter/index.js'
 
 const events = {}
 
@@ -28,9 +29,15 @@ const document = {
       return new Audio()
     } else if (tagName === 'img') {
       return new Image()
+    }else if (tagName === 'video') {
+      return new HTMLVideoElement()
     }
 
     return new HTMLElement(tagName)
+  },
+
+  createElementNS(nameSpace, tagName) {
+    return this.createElement(tagName);
   },
 
   getElementById(id) {

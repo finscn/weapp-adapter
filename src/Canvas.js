@@ -1,6 +1,4 @@
-import { HTMLCanvasElement, CanvasRenderingContext2D, WebGLRenderingContext } from './constructor'
-import HTMLElement from './HTMLElement'
-import document from './document'
+import HTMLCanvasElement from './HTMLCanvasElement'
 
 let hasModifiedCanvasPrototype = false
 let hasInit2DContextConstructor = false
@@ -11,7 +9,7 @@ export default function Canvas() {
 
   canvas.type = 'canvas'
 
-  canvas.__proto__.__proto__.__proto__ = new HTMLElement('canvas')
+  canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
 
   const _getContext = canvas.getContext
 
