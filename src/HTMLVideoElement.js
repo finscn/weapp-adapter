@@ -1,5 +1,4 @@
-import * as utils from 'utils.js';
-import HTMLMediaElement from 'HTMLMediaElement.js';
+import HTMLMediaElement from './HTMLMediaElement';
 
 export default class HTMLVideoElement extends HTMLMediaElement
 {
