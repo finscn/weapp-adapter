@@ -1,5 +1,5 @@
-export default function() {
-    const worker = wx.createWorker();
+export default function(file) {
+    const worker = wx.createWorker(file);
 
     return worker;
 };
