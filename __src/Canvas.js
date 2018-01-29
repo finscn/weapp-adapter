@@ -11,7 +11,7 @@ export default function Canvas() {
 
   canvas.type = 'canvas'
 
-  canvas.__proto__.__proto__.__proto__ = new HTMLElement('canvas')
+  canvas.__proto__.__proto__ = new HTMLElement('canvas')
 
   const _getContext = canvas.getContext
 

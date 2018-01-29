@@ -1,9 +1,9 @@
-import HTMLImageElement from 'HTMLImageElement.js'
+import HTMLImageElement from './HTMLImageElement'
 
 export default function() {
-    var image = wx.createImage();
-    console.log(image.onload);
+    const image = wx.createImage();
+
     image.__proto__.__proto__.__proto__ = new HTMLImageElement();
-    console.log(image.onload);
+
     return image;
 };

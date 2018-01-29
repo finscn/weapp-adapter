@@ -1,6 +1,6 @@
 const _events = new WeakMap()
 
-export default class EventTarget {
+class EventTarget {
   constructor() {
     _events.set(this, {})
   }
