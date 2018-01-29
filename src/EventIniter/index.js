@@ -1,1 +1,1 @@
-import './TouchEvent'
+export TouchEvent from './TouchEvent'

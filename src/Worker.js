@@ -1,6 +1,5 @@
-export default class Worker
-{
-    constructor(){
-        // TODO
-    }
-}
+export default function() {
+    const worker = wx.createWorker();
+
+    return worker;
+};

@@ -2,7 +2,7 @@ import * as window from '../window'
 import document from '../document'
 import { noop } from '../util/'
 
-class TouchEvent {
+export default class TouchEvent {
   target = window.canvas
   currentTarget = window.canvas
   touches = []
