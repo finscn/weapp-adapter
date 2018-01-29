@@ -23,5 +23,20 @@ export default function Canvas() {
     return ret
   }
 
+  canvas.style = {
+    // TODO
+  }
+
+  canvas.addEventListener = function (type, listener, options = {}) {
+    // TODO
+  }
+
+  canvas.removeEventListener = function (type, listener) {
+    // TODO
+  }
+  canvas.dispatchEvent = function (event = {}) {
+    // TODO
+  }
+
   return canvas
 }

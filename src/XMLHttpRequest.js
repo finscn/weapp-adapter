@@ -1,3 +1,5 @@
+import EventTarget from './EventTarget.js'
+
 const _url = new WeakMap()
 const _method = new WeakMap()
 const _requestHeader = new WeakMap()
@@ -15,7 +17,7 @@ function _changeReadyState(readyState) {
   _triggerEvent.call(this, 'readystatechange')
 }
 
-export default class XMLHttpRequest {
+export default class XMLHttpRequest extends EventTarget {
   // TODO 没法模拟 HEADERS_RECEIVED 和 LOADING 两个状态
   static UNSEND = 0
   static OPENED = 1
@@ -46,6 +48,8 @@ export default class XMLHttpRequest {
   withCredentials = false
 
   constructor() {
+    super();
+
     _requestHeader.set(this, {
       'content-type': 'application/x-www-form-urlencoded'
     })
