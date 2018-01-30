@@ -18,13 +18,13 @@ export default class EventTarget {
     events[type].push(listener)
 
     if (options.capture) {
-      console.warn('EventTarget.addEventListener: options.capture is not implemented.')
+      // console.warn('EventTarget.addEventListener: options.capture is not implemented.')
     }
     if (options.once) {
-      console.warn('EventTarget.addEventListener: options.once is not implemented.')
+      // console.warn('EventTarget.addEventListener: options.once is not implemented.')
     }
     if (options.passive) {
-      console.warn('EventTarget.addEventListener: options.passive is not implemented.')
+      // console.warn('EventTarget.addEventListener: options.passive is not implemented.')
     }
   }
 

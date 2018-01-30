@@ -7,9 +7,10 @@
 //     }
 // };
 
+import Canvas from './Canvas'
 import HTMLElement from './HTMLElement'
 
-GameGlobal.screencanvas = GameGlobal.screencanvas || wx.createCanvas();
+GameGlobal.screencanvas = GameGlobal.screencanvas || new Canvas();
 const canvas = GameGlobal.screencanvas;
 
 const canvasConstructor = canvas.constructor;

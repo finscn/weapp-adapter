@@ -13,10 +13,9 @@ function inject () {
   _window.removeEventListener = (type, listener) => {
     _window.document.removeEventListener(type, listener)
   }
-
-  if (_window.canvas) {
-    _window.canvas.addEventListener = _window.addEventListener
-    _window.canvas.removeEventListener = _window.removeEventListener
+  _window.dispatchEvent = function (event = {}) {
+    console.log('window.dispatchEvent' , event.type, event);
+    // nothing to do
   }
 
   const { platform } = wx.getSystemInfoSync()

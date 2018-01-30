@@ -1,4 +1,5 @@
 // import HTMLCanvasElement from './HTMLCanvasElement'
+import { innerWidth, innerHeight } from './WindowProperties'
 
 let hasModifiedCanvasPrototype = false
 let hasInit2DContextConstructor = false
@@ -24,18 +25,25 @@ export default function Canvas() {
   }
 
   canvas.style = {
-    // TODO
+    top: '0px',
+    left: '0px',
+    width: innerWidth + 'px',
+    height: innerHeight + 'px',
   }
 
   canvas.addEventListener = function (type, listener, options = {}) {
-    // TODO
+    // console.log('canvas.addEventListener', type);
+    document.addEventListener(type, listener, options);
   }
 
   canvas.removeEventListener = function (type, listener) {
-    // TODO
+    // console.log('canvas.removeEventListener', type);
+    document.removeEventListener(type, listener);
   }
+
   canvas.dispatchEvent = function (event = {}) {
-    // TODO
+    console.log('canvas.dispatchEvent' , event.type, event);
+    // nothing to do
   }
 
   return canvas
