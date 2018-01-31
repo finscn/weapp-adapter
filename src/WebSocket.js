@@ -1,6 +1,6 @@
 const _socketTask = new WeakMap()
 
-class WebSocket {
+export default class WebSocket {
   static CONNECTING = 0 // The connection is not yet open.
   static OPEN = 1 // The connection is open and ready to communicate.
   static CLOSING = 2 // The connection is in the process of closing.
@@ -84,5 +84,3 @@ class WebSocket {
     })
   }
 }
-
-export default WebSocket
