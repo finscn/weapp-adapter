@@ -46,5 +46,19 @@ export default function Canvas() {
     // nothing to do
   }
 
+  Object.defineProperty(canvas, 'clientWidth', {
+    enumerable: true,
+    get: function get() {
+      return innerWidth
+    }
+  })
+
+  Object.defineProperty(canvas, 'clientHeight', {
+    enumerable: true,
+    get: function get() {
+      return innerHeight
+    }
+  })
+
   return canvas
 }
