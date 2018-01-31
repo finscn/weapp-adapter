@@ -12,8 +12,9 @@ weapp-adapter of Wechat Tiny Game in ES6
 ## 改良内容
 
 * 修改 HTMLImageElement / HTMLCanvasElement / HTMLVideoElement 的实现。可通过 instanceof 检测
-* 导出 TouchEvent, 并解除循环依赖
-* 添加 MoustEvent (开发工具里需要)
+* 导出全局 TouchEvent, 并解除循环依赖
+* 添加全局 伪MoustEvent (开发工具里需要)
+* 添加全局 伪WebGLRenderingContext
 * XMLHttpRequest 继承 EventTarget
 * 添加 document.createElementNS
 * 为 canvas 添加 EventTarget特性 与 style
