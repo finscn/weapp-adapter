@@ -32,6 +32,11 @@ weapp-adapter of Wechat Tiny Game in ES6
 import './js/libs/weapp-adapter/index.js'
 ```
 
-注意:
-按ES6语法, 理论上可以使用 `import './js/libs/weapp-adapter/`
+----
+
+####注意:
+
+* 按ES6语法, 理论上可以使用 `import './js/libs/weapp-adapter/`
 (不加index.js), 但是实际真机测试发现有些时候不行.
+* 本项目没有提供 webpack 编译脚本, 建议直接引用源代码。然后让微信小游戏引擎自己进行编译、压缩、转换。这样其实代码包体积比自行编译还要小一些。
+
