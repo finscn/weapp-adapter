@@ -18,7 +18,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 * 添加 document.createElementNS
 * 为 canvas 添加 EventTarget特性 与 style
 * 为 canvas 添加 clientWidth/clientHeight
-* 为 Pixi.js 做适配 (WIP)
+* 针对 Pixi.js、Three.js 等流行框架做适配 (WIP)
 
 
 ----
