@@ -34,7 +34,7 @@ import './js/libs/weapp-adapter/index.js'
 
 ----
 
-####注意:
+#### 注意:
 
 * 按ES6语法, 理论上可以使用 `import './js/libs/weapp-adapter/`
 (不加index.js), 但是实际真机测试发现有些时候不行.
