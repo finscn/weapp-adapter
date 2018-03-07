@@ -15,6 +15,6 @@ const canvas = GameGlobal.screencanvas;
 
 const canvasConstructor = canvas.constructor;
 
-canvasConstructor.__proto__.__proto__ = new HTMLElement();
+// canvasConstructor.__proto__.__proto__ = new HTMLElement();
 
 export default canvasConstructor;
