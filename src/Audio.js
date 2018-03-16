@@ -66,6 +66,10 @@ export default class Audio extends HTMLAudioElement {
     _innerAudioContext.get(this).pause()
   }
 
+  destroy () {
+    _innerAudioContext.get(this).destroy()
+  }
+
   canPlayType(mediaType = '') {
     if (typeof mediaType !== 'string') {
       return ''
@@ -83,6 +87,10 @@ export default class Audio extends HTMLAudioElement {
 
   set currentTime(value) {
     _innerAudioContext.get(this).seek(value)
+  }
+
+  get duration () {
+    return _innerAudioContext.get(this).duration;
   }
 
   get src() {
