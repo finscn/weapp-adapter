@@ -28,7 +28,20 @@ weapp-adapter of Wechat Tiny Game in ES6
 ## 微信小游戏引擎 已知问题
 （只列出比较严重的、且难以通过hack手段解决的问题）
 
-* Android下的WebGL不支持`OES_vertex_array_object `扩展，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在判断能否使用OESVao时产生错误。
+* 对扩展`EXT_texture_filter_anisotropic`的支持有bug.
+执行下列代码:
+```
+var ext = gl.getExtension("EXT_texture_filter_anisotropic")
+    || gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic")
+    ||gl.getExtension("MOZ_EXT_texture_filter_anisotropic");
+```
+此时:
+`ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined
+
+`gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null
+
+
+* 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
 * Android下`gl.createFramebuffer/gl.createTexture`的大小有误。与canvas的分辨率有关。
 * Android下的WebGL对`stencil`的支持有问题( `gl.getContextAttributes().stencil !== true` )。这导致 PixiJS 无法正常使用WebGL模式。虽然通过一些比较丑陋的hack，可以让程序运行，但是某些涉及到 Filter、Mask、Graphics 的功能无法正常使用。在使用ThreeJS的一些高级功能也会出现一些问题。
 * 获取 WebGLRenderingContext的信息（antialias、preserveDrawingBuffer、stencil）时，本应该是`布尔类型`，返回的却是数值 1/0, 而不是 true/false 。导致使用严格判断（ === ）时，出现错误。
