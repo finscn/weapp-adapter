@@ -1,5 +1,9 @@
 import Canvas from './Canvas'
 
+import CommonComputedStyle from './style/CommonComputedStyle'
+import getImageComputedStyle from './style/ImageComputedStyle'
+import getCanvasComputedStyle from './style/CanvasComputedStyle'
+
 export navigator from './navigator'
 export XMLHttpRequest from './XMLHttpRequest'
 export WebSocket from './WebSocket'
@@ -23,6 +27,18 @@ export * from './WindowProperties'
 GameGlobal.screencanvas = GameGlobal.screencanvas || new Canvas()
 const canvas = GameGlobal.screencanvas;
 
+function getComputedStyle(dom) {
+    const tagName = dom.tagName;
+
+    if (tagName === "CANVAS") {
+        return getCanvasComputedStyle(dom);
+    } else if (tagName === "IMG") {
+        return getImageComputedStyle(dom);
+    }
+
+    return CommonComputedStyle;
+}
+
 export { canvas }
 export { setTimeout }
 export { setInterval }
@@ -30,3 +46,4 @@ export { clearTimeout }
 export { clearInterval }
 export { requestAnimationFrame }
 export { cancelAnimationFrame }
+export { getComputedStyle }

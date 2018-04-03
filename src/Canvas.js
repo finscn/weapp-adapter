@@ -10,6 +10,7 @@ export default function Canvas() {
 
   canvas.type = 'canvas'
 
+  // canvas.tagName = 'CANVAS'
   // canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
 
   const _getContext = canvas.getContext
