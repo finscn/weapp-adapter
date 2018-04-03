@@ -21,6 +21,7 @@ const document = {
 
   head: new HTMLElement('head'),
   body: new HTMLElement('body'),
+  scripts: [],
 
   createElement(tagName) {
     tagName = tagName.toLowerCase();
