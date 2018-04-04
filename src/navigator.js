@@ -28,8 +28,10 @@ const navigator = {
   }
 }
 
-wx.onNetworkStatusChange(function(event){
-  navigator.onLine = event.isConnected;
-});
+if (wx.onNetworkStatusChange) {
+    wx.onNetworkStatusChange(function(event){
+        navigator.onLine = event.isConnected;
+    });
+}
 
 export default navigator

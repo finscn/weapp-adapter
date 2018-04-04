@@ -21,7 +21,7 @@ function inject () {
   const { platform } = wx.getSystemInfoSync()
 
   // 开发者工具无法重定义 window
-  if (platform === 'devtools') {
+  if (typeof __devtoolssubcontext === 'undefined' && platform === 'devtools') {
     for (const key in _window) {
       const descriptor = Object.getOwnPropertyDescriptor(global, key)
 
