@@ -5,20 +5,26 @@ export default class Body extends HTMLElement {
     constructor(type) {
         super('body')
 
-        this.clientLeft = 0;
-        this.clientTop = 0;
-        this.clientWidth = innerWidth;
-        this.clientHeight = innerHeight;
+        if (!('clientLeft' in this)) {
+            this.clientLeft = 0;
+            this.clientTop = 0;
+            this.clientWidth = innerWidth;
+            this.clientHeight = innerHeight;
+        }
 
-        this.offsetLeft = 0;
-        this.offsetTop = 0;
-        this.offsetWidth = innerWidth;
-        this.offsetHeight = innerHeight;
+        if (!('offsetLeft' in this)) {
+            this.offsetLeft = 0;
+            this.offsetTop = 0;
+            this.offsetWidth = innerWidth;
+            this.offsetHeight = innerHeight;
+        }
 
-        this.scrollLeft = 0;
-        this.scrollTop = 0;
-        this.scrollWidth = innerWidth;
-        this.scrollHeight = innerHeight;
+        if (!('scrollLeft' in this)) {
+            this.scrollLeft = 0;
+            this.scrollTop = 0;
+            this.scrollWidth = innerWidth;
+            this.scrollHeight = innerHeight;
+        }
 
         this.style = {
             top: '0px',
