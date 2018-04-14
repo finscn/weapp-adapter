@@ -4,6 +4,7 @@ import HTMLVideoElement from './HTMLVideoElement'
 import Image from './Image'
 import Audio from './Audio'
 import Canvas from './Canvas'
+import Body from './Body'
 import './EventIniter/index.js'
 
 const events = {}
@@ -20,7 +21,7 @@ const document = {
   ontouchend: null,
 
   head: new HTMLElement('head'),
-  body: new HTMLElement('body'),
+  body: new Body(),
   scripts: [],
 
   createElement(tagName) {
