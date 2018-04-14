@@ -23,6 +23,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 * 为 canvas 添加 EventTarget特性 与 style
 * 为 canvas 添加 clientWidth/clientHeight
 * 针对 PixiJS、ThreeJS、Phaser 等流行框架做适配 (WIP)
+* 支持 基本的PointerEvent, 并且支持多点触控
 
 ----
 
@@ -48,6 +49,7 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 * Android下的WebGL对`stencil`的支持有问题( `gl.getContextAttributes().stencil !== true` )。这导致 PixiJS 无法正常使用WebGL模式。虽然通过一些比较丑陋的hack，可以让程序运行，但是某些涉及到 Filter、Mask、Graphics 的功能无法正常使用。在使用ThreeJS的一些高级功能也会出现一些问题。
 * 获取 WebGLRenderingContext的信息（antialias、preserveDrawingBuffer、stencil）时，本应该是`布尔类型`，返回的却是数值 1/0, 而不是 true/false 。导致使用严格判断（ === ）时，出现错误。
 * 无法正确取得WebGL的版本。导致使用 ThreeJS(老版本)时，Android下直接报错（Cannot read '1' of null）。iOS下取得的版本号有误，但是暂时不影响ThreeJS的使用。
+* window.performance.now 返回值的单位不正确
 
 
 ----
