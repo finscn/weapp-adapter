@@ -13,6 +13,10 @@ export default function Canvas() {
   // canvas.tagName = 'CANVAS'
   // canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
 
+  if (!('parentElement' in canvas)){
+    canvas.parentElement = canvas
+  }
+
   const _getContext = canvas.getContext
 
   canvas.getBoundingClientRect = () => {
