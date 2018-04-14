@@ -32,6 +32,9 @@ export default function Canvas() {
     height: innerHeight + 'px',
   }
 
+  canvas.focus = function(){};
+  canvas.blur = function(){};
+
   canvas.addEventListener = function (type, listener, options = {}) {
     // console.log('canvas.addEventListener', type);
     document.addEventListener(type, listener, options);

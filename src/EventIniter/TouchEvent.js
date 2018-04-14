@@ -1,32 +1,34 @@
 import { noop } from '../util/index.js'
+import Event from '../Event';
 
-export default class TouchEvent {
-  touches = []
-  targetTouches = []
-  changedTouches = []
-  preventDefault = noop
-  stopPropagation = noop
+export default class TouchEvent extends Event {
 
-  constructor(type) {
-    this.type = type
-    this.target = window.canvas
-    this.currentTarget = window.canvas
-  }
+    touches = []
+    targetTouches = []
+    changedTouches = []
+
+    constructor(type) {
+        super(type)
+
+        this.target = window.canvas
+        this.currentTarget = window.canvas
+    }
 }
 
-function touchEventHandlerFactory(type) {
-  return (event) => {
-    const touchEvent = new TouchEvent(type)
+function eventHandlerFactory(type) {
+    return (rawEvent) => {
+        const event = new TouchEvent(type)
 
-    touchEvent.touches = event.touches
-    touchEvent.targetTouches = Array.prototype.slice.call(event.touches)
-    touchEvent.changedTouches = event.changedTouches
-    touchEvent.timeStamp = event.timeStamp
-    document.dispatchEvent(touchEvent)
-  }
+        event.changedTouches = rawEvent.changedTouches
+        event.touches = rawEvent.touches
+        event.targetTouches = Array.prototype.slice.call(rawEvent.touches)
+        event.timeStamp = rawEvent.timeStamp
+
+        document.dispatchEvent(event)
+    }
 }
 
-wx.onTouchStart(touchEventHandlerFactory('touchstart'))
-wx.onTouchMove(touchEventHandlerFactory('touchmove'))
-wx.onTouchEnd(touchEventHandlerFactory('touchend'))
-wx.onTouchCancel(touchEventHandlerFactory('touchcancel'))
+wx.onTouchStart(eventHandlerFactory('touchstart'))
+wx.onTouchMove(eventHandlerFactory('touchmove'))
+wx.onTouchEnd(eventHandlerFactory('touchend'))
+wx.onTouchCancel(eventHandlerFactory('touchcancel'))

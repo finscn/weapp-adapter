@@ -11,6 +11,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 本项目则是一个改良的`weapp-adapter`, 基于ES6.
 
 ----
+
 ## 改良内容
 
 * 修改 HTMLImageElement / HTMLCanvasElement / HTMLVideoElement 的实现。可通过 instanceof 检测
@@ -26,6 +27,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 ----
 
 ## 微信小游戏引擎 已知问题
+
 （只列出比较严重的、且难以通过hack手段解决的问题）
 
 * 对扩展`EXT_texture_filter_anisotropic`的支持有bug.
@@ -49,6 +51,7 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 
 ----
+
 ## 使用方法
 
 将`src`下的文件放入小游戏项目中(例如 放入 js/libs/weapp-adapter 目录内)
