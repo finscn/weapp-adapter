@@ -8,6 +8,8 @@ export default class Body extends HTMLElement {
         if (!('clientLeft' in this)) {
             this.clientLeft = 0;
             this.clientTop = 0;
+        }
+        if (!('clientWidth' in this)) {
             this.clientWidth = innerWidth;
             this.clientHeight = innerHeight;
         }
@@ -15,6 +17,8 @@ export default class Body extends HTMLElement {
         if (!('offsetLeft' in this)) {
             this.offsetLeft = 0;
             this.offsetTop = 0;
+        }
+        if (!('offsetWidth' in this)) {
             this.offsetWidth = innerWidth;
             this.offsetHeight = innerHeight;
         }
@@ -22,6 +26,8 @@ export default class Body extends HTMLElement {
         if (!('scrollLeft' in this)) {
             this.scrollLeft = 0;
             this.scrollTop = 0;
+        }
+        if (!('scrollWidth' in this)) {
             this.scrollWidth = innerWidth;
             this.scrollHeight = innerHeight;
         }
