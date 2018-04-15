@@ -51,9 +51,11 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 * 获取 WebGLRenderingContext的信息（antialias、preserveDrawingBuffer、stencil）时，本应该是`布尔类型`，返回的却是数值 1/0, 而不是 true/false 。导致使用严格判断（ === ）时，出现错误。
 * 无法正确取得WebGL的版本。导致使用 ThreeJS(老版本)时，Android下直接报错（Cannot read '1' of null）。iOS下取得的版本号有误，但是暂时不影响ThreeJS的使用。
 * window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
-```window.performance.now = function(){
+```
+window.performance.now = function(){
     return Date.now();
-};```
+};
+```
 
 
 ----
