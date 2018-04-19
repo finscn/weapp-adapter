@@ -24,6 +24,8 @@ const document = {
     body: new Body(),
     scripts: [],
 
+    fullscreen: true,
+
     createElement(tagName) {
         tagName = tagName.toLowerCase();
         if (tagName === 'canvas') {
@@ -43,6 +45,11 @@ const document = {
         return this.createElement(tagName);
     },
 
+    createTextNode(text) {
+        // TODO: Do we need the TextNode Class ???
+        return text;
+    },
+
     getElementById(id) {
         if (id === window.canvas.id) {
             return window.canvas
@@ -51,6 +58,7 @@ const document = {
     },
 
     getElementsByTagName(tagName) {
+        tagName = tagName.toLowerCase();
         if (tagName === 'head') {
             return [document.head]
         } else if (tagName === 'body') {
@@ -59,6 +67,10 @@ const document = {
             return [window.canvas]
         }
         return []
+    },
+
+    getElementsByTagNameNS(nameSpace, tagName) {
+        return this.getElementsByTagName(tagName);
     },
 
     getElementsByName(tagName) {
