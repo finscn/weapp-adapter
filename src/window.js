@@ -39,6 +39,18 @@ function getComputedStyle(dom) {
     return CommonComputedStyle;
 }
 
+function scrollTo(x, y){
+    // x = Math.min(window.innerWidth, Math.max(0, x));
+    // y = Math.min(window.innerHeight, Math.max(0, y));
+    // We can't scroll the page of WeChatTinyGame, so it'll always be 0.
+    window.scrollX = 0;
+    window.scrollY = 0;
+}
+
+function scrollBy(dx, dy){
+    window.scrollTo(window.scrollX + dx, window.scrollY + dy);
+}
+
 export { canvas }
 export { setTimeout }
 export { setInterval }
@@ -47,3 +59,5 @@ export { clearInterval }
 export { requestAnimationFrame }
 export { cancelAnimationFrame }
 export { getComputedStyle }
+export { scrollTo }
+export { scrollBy }

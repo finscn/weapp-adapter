@@ -1,4 +1,5 @@
 import * as window from './window'
+import Event from './Event'
 import HTMLElement from './HTMLElement'
 import HTMLVideoElement from './HTMLVideoElement'
 import Image from './Image'
@@ -11,20 +12,22 @@ const events = {}
 
 const document = {
     readyState: 'complete',
-    visibilityState: 'visible',
-    documentElement: window,
+    visibilityState: 'visible', // 'visible' , 'hidden'
     hidden: false,
-    style: {},
+    fullscreen: true,
+
+    documentElement: window,
     location: window.location,
-    ontouchstart: null,
-    ontouchmove: null,
-    ontouchend: null,
 
     head: new HTMLElement('head'),
     body: new Body(),
     scripts: [],
+    style: {},
 
-    fullscreen: true,
+    ontouchstart: null,
+    ontouchmove: null,
+    ontouchend: null,
+    onvisibilitychange: null,
 
     createElement(tagName) {
         tagName = tagName.toLowerCase();
@@ -138,5 +141,30 @@ const document = {
         }
     }
 }
+
+
+function onVisibilityChange(visible){
+
+    return function(){
+
+        document.visibilityState = visible ? 'visible' : 'hidden';
+
+        const hidden = !visible;
+        if (document.hidden === hidden){
+            return;
+        }
+        document.hidden = hidden;
+
+        const event = new Event('visibilitychange');
+
+        event.target = document;
+        event.timeStamp = Date.now();
+
+        document.dispatchEvent(event);
+    }
+}
+
+wx.onHide(onVisibilityChange(false));
+wx.onShow(onVisibilityChange(true));
 
 export default document
