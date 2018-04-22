@@ -46,16 +46,27 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 
 * 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
+
 * Android下`gl.createFramebuffer/gl.createTexture`的大小有误。与canvas的分辨率有关。
+
 * Android下的WebGL对`stencil`的支持有问题( `gl.getContextAttributes().stencil !== true` )。这导致 PixiJS 无法正常使用WebGL模式。虽然通过一些比较丑陋的hack，可以让程序运行，但是某些涉及到 Filter、Mask、Graphics 的功能无法正常使用。在使用ThreeJS的一些高级功能也会出现一些问题。
+
 * 获取 WebGLRenderingContext的信息（antialias、preserveDrawingBuffer、stencil）时，本应该是`布尔类型`，返回的却是数值 1/0, 而不是 true/false 。导致使用严格判断（ === ）时，出现错误。
+
 * 无法正确取得WebGL的版本。导致使用 ThreeJS(老版本)时，Android下直接报错（Cannot read '1' of null）。iOS下取得的版本号有误，但是暂时不影响ThreeJS的使用。
+
 * window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
 ```
 window.performance.now = function(){
     return Date.now();
 };
 ```
+
+* wx.onTouchEnd事件的event.touches值不对. 当一个手指抬起后, 这个手指的信息应该从  event.touches 里移除 . 但是实际上并没有移除.
+
+* wx的touch事件的 event.changedTouches和 event.touches列表里 每个元素(Touch对象) 缺少`target`属性
+
+* wx.getStorageSync(key) 的BUG. 当 key不存在时, 该api返回的是 空字符串, 应该返回null.
 
 
 ----
