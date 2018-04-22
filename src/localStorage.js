@@ -12,7 +12,8 @@ const localStorage = {
   },
 
   getItem(key) {
-    return wx.getStorageSync(key)
+    const value = wx.getStorageSync(key);
+    return value === "" ? null : value;
   },
 
   setItem(key, value) {

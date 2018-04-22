@@ -56,6 +56,10 @@ export default function Canvas() {
         return ret
     }
 
+    canvas.classList = [];
+    canvas.classList.add = function(){};
+    canvas.classList.remove = function(){};
+
     canvas.focus = function() {};
     canvas.blur = function() {};
 

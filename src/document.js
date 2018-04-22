@@ -16,7 +16,7 @@ const document = {
     hidden: false,
     fullscreen: true,
 
-    documentElement: window,
+    documentElement: new Body(),
     location: window.location,
 
     head: new HTMLElement('head'),

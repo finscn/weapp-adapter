@@ -17,6 +17,10 @@ export default class HTMLElement extends Element {
   constructor(tagName = '') {
     super()
     this.tagName = tagName.toUpperCase()
+
+    this.classList = [];
+    this.classList.add = function(){};
+    this.classList.remove = function(){};
   }
 
   setAttribute(name, value) {

@@ -6,5 +6,9 @@ export default function() {
     // image.tagName = 'IMG'
     // image.__proto__.__proto__.__proto__ = new HTMLImageElement();
 
+    image.classList = [];
+    image.classList.add = function(){};
+    image.classList.remove = function(){};
+
     return image;
 };
