@@ -5,6 +5,7 @@ import HTMLVideoElement from './HTMLVideoElement'
 import Image from './Image'
 import Audio from './Audio'
 import Canvas from './Canvas'
+import DocumentElement from './DocumentElement'
 import Body from './Body'
 import './EventIniter/index.js'
 
@@ -16,11 +17,8 @@ const document = {
     hidden: false,
     fullscreen: true,
 
-    documentElement: new Body(),
     location: window.location,
 
-    head: new HTMLElement('head'),
-    body: new Body(),
     scripts: [],
     style: {},
 
@@ -142,6 +140,9 @@ const document = {
     }
 }
 
+document.documentElement = new DocumentElement()
+document.head = new HTMLElement('head')
+document.body = new Body()
 
 function onVisibilityChange(visible){
 

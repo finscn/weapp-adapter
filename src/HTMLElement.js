@@ -1,70 +1,42 @@
-import Element from './Element'
 import { noop } from './util/index.js'
-import { innerWidth, innerHeight } from './WindowProperties'
+import * as Mixin from './util/mixin'
+import Element from './Element'
 
 export default class HTMLElement extends Element {
-  className = ''
-  childern = []
-  style = {
-    width: `${innerWidth}px`,
-    height: `${innerHeight}px`
-  }
+    className = ''
+    childern = []
 
-  insertBefore = noop
+    insertBefore = noop
+    focus = noop
+    blur = noop
 
-  innerHTML = ''
+    innerHTML = ''
 
-  constructor(tagName = '') {
-    super()
-    this.tagName = tagName.toUpperCase()
+    constructor(tagName = '', level) {
+        super()
+        this.tagName = tagName.toUpperCase()
 
-    this.classList = [];
-    this.classList.add = function(){};
-    this.classList.remove = function(){};
-  }
-
-  setAttribute(name, value) {
-    this[name] = value
-  }
-
-  getAttribute(name) {
-    return this[name]
-  }
-
-  get clientWidth() {
-    const ret = parseInt(this.style.fontSize, 10) * this.innerHTML.length
-
-    return Number.isNaN(ret) ? 0 : ret
-  }
-
-  get clientHeight() {
-    const ret = parseInt(this.style.fontSize, 10)
-
-    return Number.isNaN(ret) ? 0 : ret
-  }
-
-  getBoundingClientRect() {
-    return {
-      top: 0,
-      left: 0,
-      width: innerWidth,
-      height: innerHeight
+        Mixin.parentNode(this, level);
+        Mixin.style(this);
+        Mixin.classList(this);
+        Mixin.clientRegion(this);
+        Mixin.offsetRegion(this);
+        Mixin.scrollRegion(this);
     }
-  }
 
-  blur() {
+    setAttribute(name, value) {
+        this[name] = value
+    }
 
-  }
+    getAttribute(name) {
+        return this[name]
+    }
 
-  focus() {
+    appendChild() {
 
-  }
+    }
 
-  appendChild(){
+    removeChild() {
 
-  }
-
-  removeChild() {
-
-  }
+    }
 }

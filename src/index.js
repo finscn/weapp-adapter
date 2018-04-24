@@ -1,6 +1,5 @@
 import * as _window from './window'
 import document from './document'
-import HTMLElement from './HTMLElement'
 
 const global = GameGlobal
 
