@@ -13,7 +13,8 @@ export const screen = {
 }
 export const scrollX = 0
 export const scrollY = 0
-export const performance = wx.getPerformance ? wx.getPerformance() : null;
 export const ontouchstart = null
 export const ontouchmove = null
 export const ontouchend = null
+
+export performance from './performance'
