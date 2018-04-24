@@ -9,6 +9,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 (关于什么是 weapp-adapter 详见: https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/base/adapter.html )
 
 本项目则是一个改良的`weapp-adapter`, 基于ES6.
+针对 PixiJS、ThreeJS、Babylon、Phaser 等流行框架做适配, 希望可以尽可能完善的支持它们. 当然这将是一个持续的过程.
 
 ----
 
@@ -19,11 +20,11 @@ weapp-adapter of Wechat Tiny Game in ES6
 * 添加全局 伪MoustEvent (开发工具里需要)
 * 添加全局 伪WebGLRenderingContext
 * XMLHttpRequest 继承 EventTarget
-* 添加 document.createElementNS
+* 添加若干 document 和 window 下的属性与方法
 * 为 canvas 添加 EventTarget特性 与 基本的style属性
 * 为 canvas 添加 clientWidth/clientHeight/getBoundingClientRect()/focus()/blur() 等常用属性和方法
 * 支持 基本的PointerEvent, 并且支持多点触控
-* 针对 PixiJS、ThreeJS、Babylon、Phaser 等流行框架做适配 (WIP)
+
 
 
 ----
@@ -32,7 +33,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 
 （只列出比较严重的、且难以通过hack手段解决的问题）
 
-* 对扩展`EXT_texture_filter_anisotropic`的支持有bug.
+* (已暂时解决, 但不是最佳方案) 对扩展`EXT_texture_filter_anisotropic`的支持有bug.
 执行下列代码:
 ```
 var ext = gl.getExtension("EXT_texture_filter_anisotropic")
@@ -43,9 +44,9 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 `ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined
 
 `gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null
+(已暂时解决, 但不是最佳方案)
 
-
-* 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
+* (已暂时解决, 但不是最佳方案) 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
 
 * Android下`gl.createFramebuffer/gl.createTexture`的大小有误。与canvas的分辨率有关。
 
@@ -55,7 +56,7 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 * 无法正确取得WebGL的版本。导致使用 ThreeJS(老版本)时，Android下直接报错（Cannot read '1' of null）。iOS下取得的版本号有误，但是暂时不影响ThreeJS的使用。
 
-* window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
+* (已暂时解决, 但不是最佳方案) window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
 ```
 window.performance.now = function(){
     return Date.now();
