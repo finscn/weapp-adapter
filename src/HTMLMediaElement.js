@@ -1,8 +1,8 @@
 import HTMLElement from './HTMLElement'
 
 export default class HTMLMediaElement extends HTMLElement {
-  constructor(type) {
-    super(type)
+  constructor(tagName) {
+    super(tagName)
   }
 
   addTextTrack() {

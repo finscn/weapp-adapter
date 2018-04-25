@@ -2,31 +2,49 @@ import { innerWidth, innerHeight } from '../WindowProperties'
 
 export function parentNode(obj, level) {
     if (!('parentNode' in obj)) {
+        let _parent;
+
+        if (level === 0) {
+            _parent = function() {
+                // return document
+                return null
+            }
+        } else if (level === 1) {
+            _parent = function() {
+                return document.documentElement
+            }
+        } else {
+            _parent = function() {
+                return document.body
+            }
+        }
+
         Object.defineProperty(obj, 'parentNode', {
             enumerable: true,
-            get: function() {
-                if (level === 0) {
-                    return document
-                }
-                if (level === 1) {
-                    return document.documentElement
-                }
-                return document.body
-            }
+            get: _parent
         })
     }
+
     if (!('parentElement' in obj)) {
-        Object.defineProperty(obj, 'parentElement', {
-            enumerable: true,
-            get: function() {
-                if (level === 0) {
-                    return null
-                }
-                if (level === 1) {
-                    return document.documentElement
-                }
+        let _parent;
+
+        if (level === 0) {
+            _parent = function() {
+                return null
+            }
+        } else if (level === 1) {
+            _parent = function() {
+                return document.documentElement
+            }
+        } else {
+            _parent = function() {
                 return document.body
             }
+        }
+
+        Object.defineProperty(obj, 'parentElement', {
+            enumerable: true,
+            get: _parent
         })
     }
 }
@@ -55,7 +73,7 @@ export function clientRegion(obj) {
     }
 
     if (!('getBoundingClientRect' in obj)) {
-        obj.getBoundingClientRect = function(){
+        obj.getBoundingClientRect = function() {
             const ret = {
                 x: 0,
                 y: 0,
@@ -102,5 +120,3 @@ export function classList(obj) {
     obj.classList.contains = noop
     obj.classList.toggle = noop
 }
-
-

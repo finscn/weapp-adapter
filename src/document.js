@@ -27,6 +27,9 @@ const document = {
     ontouchend: null,
     onvisibilitychange: null,
 
+    parentNode: null,
+    parentElement: null,
+
     createElement(tagName) {
         tagName = tagName.toLowerCase();
         if (tagName === 'canvas') {
