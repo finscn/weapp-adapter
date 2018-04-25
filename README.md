@@ -19,7 +19,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 * 导出全局 TouchEvent, 并解除循环依赖
 * 添加全局 伪MoustEvent (开发工具里需要)
 * 添加全局 伪WebGLRenderingContext
-* XMLHttpRequest 继承 EventTarget
+* XMLHttpRequest 继承 EventTarget, 并支持请求本地文件(相对路径, 使用wx的readFile)
 * 添加若干 document 和 window 下的属性与方法
 * 为 canvas 添加 EventTarget特性 与 基本的style属性
 * 为 canvas 添加 clientWidth/clientHeight/getBoundingClientRect()/focus()/blur() 等常用属性和方法
