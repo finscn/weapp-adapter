@@ -56,6 +56,8 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 * 无法正确取得WebGL的版本。导致使用 ThreeJS(老版本)时，Android下直接报错（Cannot read '1' of null）。iOS下取得的版本号有误，但是暂时不影响ThreeJS的使用。
 
+* (iOS only)虽然不支持WebGL 2.0, 但是 canvas.getContext("webgl2") 和 canvas.getContext("experimental-webgl2") 返回的却不是空. 导致某些通过类似代码判断webgl版本的程序出错。
+
 * (已暂时解决, 但不是最佳方案) window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
 ```
 window.performance.now = function(){
