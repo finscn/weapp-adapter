@@ -13,7 +13,7 @@ export default function Canvas() {
 
     // canvas.__proto__.__proto__.__proto__ = new HTMLCanvasElement()
 
-    if (!('tagName' in canvas)){
+    if (!('tagName' in canvas)) {
         canvas.tagName = 'CANVAS'
     }
 

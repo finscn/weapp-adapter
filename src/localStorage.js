@@ -1,32 +1,31 @@
 const localStorage = {
-  get length() {
-    const { keys } = wx.getStorageInfoSync()
+    get length() {
+        const { keys } = wx.getStorageInfoSync()
+        return keys.length
+    },
 
-    return keys.length
-  },
+    key(n) {
+        const { keys } = wx.getStorageInfoSync()
 
-  key(n) {
-    const { keys } = wx.getStorageInfoSync()
+        return keys[n]
+    },
 
-    return keys[n]
-  },
+    getItem(key) {
+        const value = wx.getStorageSync(key);
+        return value === "" ? null : value;
+    },
 
-  getItem(key) {
-    const value = wx.getStorageSync(key);
-    return value === "" ? null : value;
-  },
+    setItem(key, value) {
+        return wx.setStorageSync(key, value)
+    },
 
-  setItem(key, value) {
-    return wx.setStorageSync(key, value)
-  },
+    removeItem(key) {
+        wx.removeStorageSync(key)
+    },
 
-  removeItem(key) {
-    wx.removeStorageSync(key)
-  },
-
-  clear() {
-    wx.clearStorageSync()
-  }
+    clear() {
+        wx.clearStorageSync()
+    }
 }
 
 export default localStorage

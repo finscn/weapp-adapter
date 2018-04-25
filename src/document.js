@@ -147,14 +147,14 @@ document.documentElement = new DocumentElement()
 document.head = new HTMLElement('head')
 document.body = new Body()
 
-function onVisibilityChange(visible){
+function onVisibilityChange(visible) {
 
-    return function(){
+    return function() {
 
         document.visibilityState = visible ? 'visible' : 'hidden';
 
         const hidden = !visible;
-        if (document.hidden === hidden){
+        if (document.hidden === hidden) {
             return;
         }
         document.hidden = hidden;

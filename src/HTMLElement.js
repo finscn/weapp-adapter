@@ -6,9 +6,13 @@ export default class HTMLElement extends Element {
     className = ''
     childern = []
 
-    insertBefore = noop
     focus = noop
     blur = noop
+
+    insertBefore = noop
+    appendChild = noop
+    removeChild = noop
+    remove = noop
 
     innerHTML = ''
 
@@ -30,13 +34,5 @@ export default class HTMLElement extends Element {
 
     getAttribute(name) {
         return this[name]
-    }
-
-    appendChild() {
-
-    }
-
-    removeChild() {
-
     }
 }

@@ -1,4 +1,4 @@
-import Event from '../Event';
+import Event from '../Event'
 
 export default class MouseEvent extends Event {
     constructor(type) {

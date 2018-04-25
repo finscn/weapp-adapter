@@ -1,5 +1,5 @@
 import { noop } from '../util/index.js'
-import Event from '../Event';
+import Event from '../Event'
 
 export default class PointerEvent extends Event {
 

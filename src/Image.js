@@ -6,7 +6,7 @@ export default function() {
 
     // image.__proto__.__proto__.__proto__ = new HTMLImageElement();
 
-    if (!('tagName' in image)){
+    if (!('tagName' in image)) {
         image.tagName = 'IMG'
     }
 
