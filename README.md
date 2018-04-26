@@ -58,12 +58,7 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 * (iOS only)虽然不支持WebGL 2.0, 但是 canvas.getContext("webgl2") 和 canvas.getContext("experimental-webgl2") 返回的却不是空. 导致某些通过类似代码判断webgl版本的程序出错。
 
-* (已暂时解决, 但不是最佳方案) window.performance.now 返回值的单位不正确。可暂时通过一下方式解决，但还是期待微信官方修正此问题：
-```
-window.performance.now = function(){
-    return Date.now();
-};
-```
+* (已暂时解决, 但不是最佳方案) window.performance.now 返回值的单位不正确。
 
 * wx.onTouchEnd事件的event.touches值不对. 当一个手指抬起后, 这个手指的信息应该从  event.touches 里移除 . 但是实际上并没有移除.
 
