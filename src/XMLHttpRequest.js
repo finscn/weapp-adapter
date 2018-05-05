@@ -193,7 +193,7 @@ export default class XMLHttpRequest extends EventTarget {
             let event = {
                 target: _this
             }
-            this['on' + type] = function(event) {
+            this['on' + type] = function() {
                 listener.call(_this, event)
             }
         }
