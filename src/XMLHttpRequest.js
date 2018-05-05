@@ -193,21 +193,6 @@ export default class XMLHttpRequest extends EventTarget {
             let event = {
                 target: _this
             }
-
-    /*
-        Cannot read property 'target' of undefined;at api request success callback function
-        TypeError: Cannot read property 'target' of undefined
-        at XMLHttpRequest.<anonymous> (http://127.0.0.1:50296/game/libs/three/three.min.js:1815:234)
-        at XMLHttpRequest.(anonymous function) [as onload] (http://127.0.0.1:50296/game/libs/weapp-adapter-git/XMLHttpRequest.js:238:30)
-        at XMLHttpRequest._triggerEvent (http://127.0.0.1:50296/game/libs/weapp-adapter-git/XMLHttpRequest.js:35:27)
-        at Function.onSuccess (http://127.0.0.1:50296/game/libs/weapp-adapter-git/XMLHttpRequest.js:180:35)
-        at Object.success (http://127.0.0.1:50296/game/__dev__/WAGame.js:3:18788)
-        at s.<anonymous> (http://127.0.0.1:50296/game/__dev__/WAGame.js:6:7730)
-        at s.emit (http://127.0.0.1:50296/game/__dev__/WAGame.js:4:18323)
-        at Function.<anonymous> (http://127.0.0.1:50296/game/__dev__/WAGame.js:6:9052)
-        at http://127.0.0.1:50296/game/__dev__/WAGame.js:4:7341
-        at a (http://127.0.0.1:50296/game/gamePage.html:1:38957)
-    */
             this['on' + type] = function() {
                 listener.call(_this, event)
             }
