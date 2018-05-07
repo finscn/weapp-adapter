@@ -204,4 +204,10 @@ export default class XMLHttpRequest extends EventTarget {
             listener.call(this, event)
         }
     }
+
+    removeEventListener(type, listener) {
+        if (this['on' + type] === listener) {
+            this['on' + type] = null;
+        }
+    }
 }
