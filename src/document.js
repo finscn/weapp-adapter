@@ -133,12 +133,17 @@ const document = {
     },
 
     dispatchEvent(event) {
-        const listeners = events[event.type]
+        const type = event.type;
+        const listeners = events[type]
 
         if (listeners) {
             for (let i = 0; i < listeners.length; i++) {
                 listeners[i](event)
             }
+        }
+
+        if (event.target && typeof event.target['on' + type] === 'function') {
+            event.target['on' + type](event)
         }
     }
 }

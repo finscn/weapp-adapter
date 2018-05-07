@@ -3,6 +3,7 @@ import Canvas from './Canvas'
 import CommonComputedStyle from './style/CommonComputedStyle'
 import getImageComputedStyle from './style/ImageComputedStyle'
 import getCanvasComputedStyle from './style/CanvasComputedStyle'
+import Event from './Event'
 
 export navigator from './navigator'
 export XMLHttpRequest from './XMLHttpRequest'
@@ -60,6 +61,23 @@ function alert(msg) {
 function focus() {}
 
 function blur() {}
+
+
+function eventHandlerFactory() {
+    return (res) => {
+        const event = new Event('resize')
+
+        event.target = window;
+        event.timeStamp = Date.now();
+        event.res = res;
+        event.windowWidth = res.windowWidth;
+        event.windowHeight = res.windowHeight;
+        document.dispatchEvent(event);
+    }
+}
+
+wx.onWindowResize(eventHandlerFactory())
+
 
 export {
     canvas,
