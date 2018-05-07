@@ -195,13 +195,13 @@ export default class XMLHttpRequest extends EventTarget {
     }
 
     addEventListener(type, listener) {
-        if (typeof listener === 'function') {
-            const event = {
-                'target': this
-            }
-            this['on' + type] = () => {
-                listener.call(this, event)
-            }
+        if (typeof listener !== 'function') {
+            return;
+        }
+
+        this['on' + type] = (event = {}) => {
+            event.target = event.target || this
+            listener.call(this, event)
         }
     }
 }
