@@ -3,7 +3,7 @@ import document from './document'
 
 const global = GameGlobal
 
-GameGlobal.global = global
+GameGlobal.global = GameGlobal.global || global
 
 function inject() {
     _window.document = document;
