@@ -8,15 +8,22 @@ const _requestTask = new WeakMap()
 
 const fs = wx.getFileSystemManager()
 
-function _triggerEvent(type, ...args) {
+function _triggerEvent(type, event) {
+    event = event || {}
+    event.target = event.target || this
+
     if (typeof this[`on${type}`] === 'function') {
-        this[`on${type}`].apply(this, args)
+        this[`on${type}`].call(this, event)
     }
 }
 
-function _changeReadyState(readyState) {
+function _changeReadyState(readyState, event) {
     this.readyState = readyState
-    _triggerEvent.call(this, 'readystatechange')
+
+    event = event || {};
+    event.readyState = readyState;
+
+    _triggerEvent.call(this, 'readystatechange', event)
 }
 
 function _isRelativePath(url) {
@@ -148,13 +155,15 @@ export default class XMLHttpRequest extends EventTarget {
                 if (errMsg.indexOf('abort') !== -1) {
                     _triggerEvent.call(this, 'abort')
                 } else {
-                    _triggerEvent.call(this, 'error', errMsg)
+                    _triggerEvent.call(this, 'error', {
+                        message: errMsg
+                    })
                 }
                 _triggerEvent.call(this, 'loadend')
 
                 if (relative) {
-                  // 用户即使没监听error事件, 也给出相应的警告
-                  console.warn(errMsg)
+                    // 用户即使没监听error事件, 也给出相应的警告
+                    console.warn(errMsg)
                 }
             }
 
@@ -189,9 +198,9 @@ export default class XMLHttpRequest extends EventTarget {
 
     addEventListener(type, listener) {
         if (typeof listener === 'function') {
-            let _this = this
-            let event = {
-                target: _this
+            const _this = this
+            const event = {
+                'target': _this
             }
             this['on' + type] = function() {
                 listener.call(_this, event)
