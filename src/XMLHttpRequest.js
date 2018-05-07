@@ -8,8 +8,7 @@ const _requestTask = new WeakMap()
 
 const fs = wx.getFileSystemManager()
 
-function _triggerEvent(type, event) {
-    event = event || {}
+function _triggerEvent(type, event = {}) {
     event.target = event.target || this
 
     if (typeof this[`on${type}`] === 'function') {
@@ -17,10 +16,9 @@ function _triggerEvent(type, event) {
     }
 }
 
-function _changeReadyState(readyState, event) {
+function _changeReadyState(readyState, event = {}) {
     this.readyState = readyState
 
-    event = event || {};
     event.readyState = readyState;
 
     _triggerEvent.call(this, 'readystatechange', event)
@@ -198,12 +196,11 @@ export default class XMLHttpRequest extends EventTarget {
 
     addEventListener(type, listener) {
         if (typeof listener === 'function') {
-            const _this = this
             const event = {
-                'target': _this
+                'target': this
             }
-            this['on' + type] = function() {
-                listener.call(_this, event)
+            this['on' + type] = () => {
+                listener.call(this, event)
             }
         }
     }
