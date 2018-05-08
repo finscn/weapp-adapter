@@ -40,9 +40,9 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
     || gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic")
     ||gl.getExtension("MOZ_EXT_texture_filter_anisotropic");
 ```
-   此时:  
-      `ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined
-      `gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null
+   &nbsp; 此时:  
+      &nbsp; `ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined
+      &nbsp; `gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null
 
 * (已暂时解决, 但不是最佳方案) 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
 
