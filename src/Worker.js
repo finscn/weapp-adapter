@@ -3,10 +3,8 @@ export default class Worker {
     onmessage = null
 
     constructor(file) {
-
         // 目前 微信小游戏中 Worker 最大并发数量限制为 1 个，
         // 所以创建新Worker前, 需要结束现有的 Worker.terminate
-
         if (Worker.previousWorker) {
             Worker.previousWorker.terminate()
         }
@@ -24,7 +22,6 @@ export default class Worker {
                 })
             }
         })
-
     }
 
     postMessage(message, transferList) {
