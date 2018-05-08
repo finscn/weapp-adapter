@@ -66,6 +66,8 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
 
 * wx.getStorageSync(key) 的BUG. 当 key不存在时, 该api返回的是 空字符串, 应该返回null.
 
+* 小游戏的`Worker`里不支持`setInterval`和`setTimeout`, 也不支持全局对象, 无法设置跨模块的全局变量。
+
 
 ----
 
