@@ -107,7 +107,7 @@ export default class XMLHttpRequest extends EventTarget {
             let encoding;
 
             if (responseType === 'arraybuffer') {
-                encoding = 'binary'
+                // encoding = 'binary'
             } else {
                 encoding = 'utf8'
             }
@@ -139,7 +139,7 @@ export default class XMLHttpRequest extends EventTarget {
                     Object.defineProperty(this, 'responseText', {
                         enumerable: true,
                         configurable: true,
-                        get: function(){
+                        get: function() {
                             throw "InvalidStateError";
                         }
                     });
@@ -170,12 +170,15 @@ export default class XMLHttpRequest extends EventTarget {
             }
 
             if (relative) {
-                fs.readFile({
-                    filePath: url,
-                    encoding: encoding,
-                    success: onSuccess,
-                    fail: onFail
-                })
+                var options = {
+                    'filePath': url,
+                    'success': onSuccess,
+                    'fail': onFail
+                }
+                if (encoding) {
+                    options['encoding'] = encoding;
+                }
+                fs.readFile(options)
                 return
             }
 
