@@ -25,6 +25,7 @@ weapp-adapter of Wechat Tiny Game in ES6
 * 为 canvas 添加 clientWidth/clientHeight/getBoundingClientRect()/focus()/blur() 等常用属性和方法
 * 支持 基本的PointerEvent, 并且支持多点触控
 * 添加 符合Web习惯的Worker, 但只适用与主线程
+* 离屏canvas不支持WebGL模式 (支持的非常糟糕, 相当于不支持)
 
 
 ----
