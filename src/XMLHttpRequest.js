@@ -112,6 +112,9 @@ export default class XMLHttpRequest extends EventTarget {
                 encoding = 'utf8'
             }
 
+            delete this.response;
+            this.response = null;
+
             const onSuccess = ({ data, statusCode, header }) => {
                 statusCode = statusCode === undefined ? 200 : statusCode;
                 if (typeof data !== 'string' && !(data instanceof ArrayBuffer)) {
@@ -133,13 +136,13 @@ export default class XMLHttpRequest extends EventTarget {
                 this.response = data
 
                 if (data instanceof ArrayBuffer) {
-                    this.responseText = ''
-                    const bytes = new Uint8Array(data)
-                    const len = bytes.byteLength
-
-                    for (let i = 0; i < len; i++) {
-                        this.responseText += String.fromCharCode(bytes[i])
-                    }
+                    Object.defineProperty(this, 'responseText', {
+                        enumerable: true,
+                        configurable: true,
+                        get: function(){
+                            throw "InvalidStateError";
+                        }
+                    });
                 } else {
                     this.responseText = data
                 }
@@ -150,6 +153,7 @@ export default class XMLHttpRequest extends EventTarget {
 
             const onFail = ({ errMsg }) => {
                 // TODO 规范错误
+
                 if (errMsg.indexOf('abort') !== -1) {
                     _triggerEvent.call(this, 'abort')
                 } else {
