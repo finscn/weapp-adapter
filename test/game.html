@@ -27,11 +27,14 @@
         canvas.height = height;
 
         window.onload = function(){
-            window._onload();
+            if (window._onload){
+                window._onload();
+            }
         }
     </script>
 
     <!-- include your js files ( without weapp-adapter & wx) -->
-    <!-- <script src="./js/my-game.js"></script> -->
+    <script type="module" src="../src/index.js"></script>
+    <script src="./game.js"></script>
 </body>
 </html>
