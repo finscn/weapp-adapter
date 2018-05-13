@@ -41,9 +41,9 @@ var ext = gl.getExtension("EXT_texture_filter_anisotropic")
     || gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic")
     ||gl.getExtension("MOZ_EXT_texture_filter_anisotropic");
 ```
- > 此时:  
- > * `ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined.   
- > * `gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null.   
+ > 此时:
+ > * `ext.TEXTURE_MAX_ANISOTROPY_EXT` 应该为一个数字, 但是小游戏里为 undefined.
+ > * `gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)` 应该为一个数字, 但是小游戏里为 null.
 
 * (已暂时解决, 但不是最佳方案) 目前小游戏底层在Android下对WebGL的扩展`OES_vertex_array_object `支持有问题，但是执行`gl.getExtension("OES_vertex_array_object")`时返回的却不是`null/undefined`，而是一个非空的对象。导致引擎在使用OES-vao时产生错误。
 
@@ -87,4 +87,31 @@ import './js/libs/weapp-adapter/index.js'
 * 按ES6语法, 理论上可以使用 `import './js/libs/weapp-adapter/`
 (不加index.js), 但是实际真机测试发现有些时候不行.
 * 本项目没有提供 webpack 编译脚本, 建议直接引用源代码。然后让微信小游戏引擎自己进行编译、压缩、转换。这样其实代码包体积比自行编译还要小一些。
+
+
+----
+
+#### LICENSE
+
+The MIT License
+
+Copyright (c) 2013-2020 finscn(大城小胖)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
