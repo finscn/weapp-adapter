@@ -140,7 +140,7 @@ export default class XMLHttpRequest extends EventTarget {
                         enumerable: true,
                         configurable: true,
                         get: function() {
-                            throw "InvalidStateError";
+                            throw "InvalidStateError : responseType is " + this.responseType;
                         }
                     });
                 } else {
