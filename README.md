@@ -9,7 +9,9 @@ weapp-adapter of Wechat Tiny Game in ES6
 (关于什么是 weapp-adapter 详见: https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/base/adapter.html )
 
 本项目则是一个改良的`weapp-adapter`, 基于ES6.
-针对 PixiJS、ThreeJS、Babylon、Phaser 等流行框架做适配, 希望可以尽可能完善的支持它们. 当然这将是一个持续的过程.
+针对 PixiJS、ThreeJS、Babylon等流行框架做适配, 希望可以尽可能完善的支持它们. 当然这将是一个持续的过程.
+
+**注意** : 本项目已经放弃对 Phaser 的支持, 因为最新的 Phaser 大量使用 Blob 对象, 而在微信小游戏里目前无法模拟 Blob. 欲使用 Phaser 的朋友请自行修改 Phaser 的代码, 避免使用 Blob 对象.
 
 ----
 
