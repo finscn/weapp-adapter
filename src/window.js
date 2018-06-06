@@ -25,6 +25,8 @@ export localStorage from './localStorage'
 export location from './location'
 export * from './WindowProperties'
 
+const { platform } = wx.getSystemInfoSync()
+
 // 暴露全局的 canvas
 GameGlobal.screencanvas = GameGlobal.screencanvas || new Canvas()
 const canvas = GameGlobal.screencanvas;
@@ -62,6 +64,24 @@ function focus() {}
 
 function blur() {}
 
+if (platform !== 'devtools') {
+    const wxPerf = wx.getPerformance();
+    const consoleTimers = {};
+    console.time = function(name) {
+        consoleTimers[name] = wxPerf.now();
+    };
+
+    console.timeEnd = function(name) {
+        var timeStart = consoleTimers[name];
+        if(!timeStart) {
+            return;
+        }
+
+        const timeElapsed = wxPerf.now() - timeStart;
+        console.log(name + ": " + timeElapsed / 1000 + "ms");
+        delete consoleTimers[name];
+    };
+}
 
 function eventHandlerFactory() {
     return (res) => {
