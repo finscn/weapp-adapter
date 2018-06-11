@@ -52,6 +52,9 @@ export default class Audio extends HTMLAudioElement {
         if (url) {
             _innerAudioContext.get(this).src = url
         }
+
+        this._volume = innerAudioContext.volume
+        this._muted = false;
     }
 
     load() {
@@ -122,11 +125,37 @@ export default class Audio extends HTMLAudioElement {
         return _innerAudioContext.get(this).paused
     }
 
+    get volume() {
+        return this._volume;
+    }
+
+    set volume(value) {
+        this._volume = value;
+        if (!this._muted) {
+            _innerAudioContext.get(this).volume = value;
+        }
+    }
+
+    get muted() {
+        return this._muted;
+    }
+
+    set muted(value) {
+        this._muted = value;
+        if (value) {
+            _innerAudioContext.get(this).volume = 0;
+        } else {
+            _innerAudioContext.get(this).volume = this._volume;
+        }
+    }
+
     cloneNode() {
         const newAudio = new Audio()
         newAudio.loop = _innerAudioContext.get(this).loop
         newAudio.autoplay = _innerAudioContext.get(this).autoplay
         newAudio.src = this.src
+        newAudio.volume = this.volume
+        newAudio.muted = this.muted
         return newAudio
     }
 }
