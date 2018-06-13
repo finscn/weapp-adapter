@@ -154,8 +154,6 @@ export default class Audio extends HTMLAudioElement {
         newAudio.loop = _innerAudioContext.get(this).loop
         newAudio.autoplay = _innerAudioContext.get(this).autoplay
         newAudio.src = this.src
-        newAudio.volume = this.volume
-        newAudio.muted = this.muted
         return newAudio
     }
 }
