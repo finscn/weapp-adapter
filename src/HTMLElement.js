@@ -27,12 +27,4 @@ export default class HTMLElement extends Element {
         Mixin.offsetRegion(this);
         Mixin.scrollRegion(this);
     }
-
-    setAttribute(name, value) {
-        this[name] = value
-    }
-
-    getAttribute(name) {
-        return this[name]
-    }
 }

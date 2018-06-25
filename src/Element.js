@@ -7,4 +7,20 @@ export default class Element extends Node {
     constructor() {
         super()
     }
+
+    setAttribute(name, value) {
+        this[name] = value
+    }
+
+    getAttribute(name) {
+        return this[name]
+    }
+
+    setAttributeNS(name, value) {
+        this[name] = value
+    }
+
+    getAttributeNS(name) {
+        return this[name]
+    }
 }
