@@ -1,24 +1,19 @@
 const _socketTask = new WeakMap()
 
 export default class WebSocket {
-  static CONNECTING = 0 // The connection is not yet open.
-  static OPEN = 1 // The connection is open and ready to communicate.
-  static CLOSING = 2 // The connection is in the process of closing.
-  static CLOSED = 3 // The connection is closed or couldn't be opened.
-
-  binaryType = '' // TODO 更新 binaryType
-  bufferedAmount = 0 // TODO 更新 bufferedAmount
-  extensions = ''
-
-  onclose = null
-  onerror = null
-  onmessage = null
-  onopen = null
-
-  protocol = '' // TODO 小程序内目前获取不到，实际上需要根据服务器选择的 sub-protocol 返回
-  readyState = 3
-
   constructor(url, protocols = []) {
+    this.binaryType = '' // TODO 更新 binaryType
+    this.bufferedAmount = 0 // TODO 更新 bufferedAmount
+    this.extensions = ''
+
+    this.onclose = null
+    this.onerror = null
+    this.onmessage = null
+    this.onopen = null
+
+    this.protocol = '' // TODO 小程序内目前获取不到，实际上需要根据服务器选择的 sub-protocol 返回
+    this.readyState = 3
+
     if (typeof url !== 'string' || !(/(^ws:\/\/)|(^wss:\/\/)/).test(url)) {
       throw new TypeError(`Failed to construct 'WebSocket': The URL '${url}' is invalid`)
     }
@@ -84,3 +79,8 @@ export default class WebSocket {
     })
   }
 }
+
+WebSocket.CONNECTING = 0 // The connection is not yet open.
+WebSocket.OPEN = 1 // The connection is open and ready to communicate.
+WebSocket.CLOSING = 2 // The connection is in the process of closing.
+WebSocket.CLOSED = 3 // The connection is closed or couldn't be opened.

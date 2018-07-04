@@ -3,12 +3,12 @@ import Event from '../Event'
 
 export default class TouchEvent extends Event {
 
-    touches = []
-    targetTouches = []
-    changedTouches = []
-
     constructor(type) {
         super(type)
+
+        this.touches = []
+        this.targetTouches = []
+        this.changedTouches = []
 
         this.target = window.canvas
         this.currentTarget = window.canvas

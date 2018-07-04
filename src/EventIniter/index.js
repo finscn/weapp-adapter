@@ -1,3 +1,3 @@
-export TouchEvent from './TouchEvent'
-export PointerEvent from './PointerEvent'
-export MouseEvent from './MouseEvent'
+export { default as TouchEvent } from './TouchEvent'
+export { default as PointerEvent } from './PointerEvent'
+export { default as MouseEvent } from './MouseEvent'

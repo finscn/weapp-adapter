@@ -29,37 +29,31 @@ function _isRelativePath(url) {
 }
 
 export default class XMLHttpRequest extends EventTarget {
-    // TODO 没法模拟 HEADERS_RECEIVED 和 LOADING 两个状态
-    static UNSEND = 0
-    static OPENED = 1
-    static HEADERS_RECEIVED = 2
-    static LOADING = 3
-    static DONE = 4
-
-    /*
-     * TODO 这一批事件应该是在 XMLHttpRequestEventTarget.prototype 上面的
-     */
-    onabort = null
-    onerror = null
-    onload = null
-    onloadstart = null
-    onprogress = null
-    ontimeout = null
-    onloadend = null
-
-    onreadystatechange = null
-    readyState = 0
-    response = null
-    responseText = null
-    responseType = ''
-    responseXML = null
-    status = 0
-    statusText = ''
-    upload = {}
-    withCredentials = false
 
     constructor() {
         super();
+
+        /*
+         * TODO 这一批事件应该是在 XMLHttpRequestEventTarget.prototype 上面的
+         */
+        this.onabort = null
+        this.onerror = null
+        this.onload = null
+        this.onloadstart = null
+        this.onprogress = null
+        this.ontimeout = null
+        this.onloadend = null
+
+        this.onreadystatechange = null
+        this.readyState = 0
+        this.response = null
+        this.responseText = null
+        this.responseType = ''
+        this.responseXML = null
+        this.status = 0
+        this.statusText = ''
+        this.upload = {}
+        this.withCredentials = false
 
         _requestHeader.set(this, {
             'content-type': 'application/x-www-form-urlencoded'
@@ -218,3 +212,10 @@ export default class XMLHttpRequest extends EventTarget {
         }
     }
 }
+
+// TODO 没法模拟 HEADERS_RECEIVED 和 LOADING 两个状态
+XMLHttpRequest.UNSEND = 0
+XMLHttpRequest.OPENED = 1
+XMLHttpRequest.HEADERS_RECEIVED = 2
+XMLHttpRequest.LOADING = 3
+XMLHttpRequest.DONE = 4

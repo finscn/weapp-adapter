@@ -10,16 +10,18 @@ const _innerAudioContext = new WeakMap()
 const _src = new WeakMap()
 const _loop = new WeakMap()
 const _autoplay = new WeakMap()
+
 export default class Audio extends HTMLAudioElement {
-    HAVE_NOTHING = HAVE_NOTHING
-    HAVE_METADATA = HAVE_METADATA
-    HAVE_CURRENT_DATA = HAVE_CURRENT_DATA
-    HAVE_FUTURE_DATA = HAVE_FUTURE_DATA
-    HAVE_ENOUGH_DATA = HAVE_ENOUGH_DATA
-    readyState = HAVE_NOTHING
 
     constructor(url) {
         super()
+
+        this.HAVE_NOTHING = HAVE_NOTHING
+        this.HAVE_METADATA = HAVE_METADATA
+        this.HAVE_CURRENT_DATA = HAVE_CURRENT_DATA
+        this.HAVE_FUTURE_DATA = HAVE_FUTURE_DATA
+        this.HAVE_ENOUGH_DATA = HAVE_ENOUGH_DATA
+        this.readyState = HAVE_NOTHING
 
         _src.set(this, '')
 

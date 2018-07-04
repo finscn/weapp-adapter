@@ -3,21 +3,23 @@ import * as Mixin from './util/mixin'
 import Element from './Element'
 
 export default class HTMLElement extends Element {
-    className = ''
-    childern = []
-
-    focus = noop
-    blur = noop
-
-    insertBefore = noop
-    appendChild = noop
-    removeChild = noop
-    remove = noop
-
-    innerHTML = ''
 
     constructor(tagName = '', level) {
         super()
+
+        this.className = ''
+        this.childern = []
+
+        this.focus = noop
+        this.blur = noop
+
+        this.insertBefore = noop
+        this.appendChild = noop
+        this.removeChild = noop
+        this.remove = noop
+
+        this.innerHTML = ''
+
         this.tagName = tagName.toUpperCase()
 
         Mixin.parentNode(this, level);
