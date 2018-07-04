@@ -6,15 +6,16 @@ const HAVE_CURRENT_DATA = 2
 const HAVE_FUTURE_DATA = 3
 const HAVE_ENOUGH_DATA = 4
 
-const _innerAudioContext = new WeakMap()
-const _src = new WeakMap()
-const _loop = new WeakMap()
-const _autoplay = new WeakMap()
+let SN_SEED = 1;
+
+const _innerAudioContext = {}
 
 export default class Audio extends HTMLAudioElement {
 
     constructor(url) {
         super()
+
+        this._$sn = SN_SEED++;
 
         this.HAVE_NOTHING = HAVE_NOTHING
         this.HAVE_METADATA = HAVE_METADATA
@@ -23,11 +24,9 @@ export default class Audio extends HTMLAudioElement {
         this.HAVE_ENOUGH_DATA = HAVE_ENOUGH_DATA
         this.readyState = HAVE_NOTHING
 
-        _src.set(this, '')
-
         const innerAudioContext = wx.createInnerAudioContext()
 
-        _innerAudioContext.set(this, innerAudioContext)
+        _innerAudioContext[this._$sn] = innerAudioContext
 
         innerAudioContext.onCanplay(() => {
             this.dispatchEvent({ type: 'load' })
@@ -52,9 +51,13 @@ export default class Audio extends HTMLAudioElement {
         })
 
         if (url) {
-            _innerAudioContext.get(this).src = url
+            this.src = url
+        }else{
+            this._src = ''
         }
 
+        this._loop = innerAudioContext.loop;
+        this._autoplay = innerAudioContext.autoplay;
         this._volume = innerAudioContext.volume
         this._muted = false;
     }
@@ -64,15 +67,15 @@ export default class Audio extends HTMLAudioElement {
     }
 
     play() {
-        _innerAudioContext.get(this).play()
+        _innerAudioContext[this._$sn].play()
     }
 
     pause() {
-        _innerAudioContext.get(this).pause()
+        _innerAudioContext[this._$sn].pause()
     }
 
     destroy() {
-        _innerAudioContext.get(this).destroy()
+        _innerAudioContext[this._$sn].destroy()
     }
 
     canPlayType(mediaType = '') {
@@ -87,44 +90,46 @@ export default class Audio extends HTMLAudioElement {
     }
 
     get currentTime() {
-        return _innerAudioContext.get(this).currentTime
+        return _innerAudioContext[this._$sn].currentTime
     }
 
     set currentTime(value) {
-        _innerAudioContext.get(this).seek(value)
+        _innerAudioContext[this._$sn].seek(value)
     }
 
     get duration() {
-        return _innerAudioContext.get(this).duration;
+        return _innerAudioContext[this._$sn].duration;
     }
 
     get src() {
-        return _src.get(this)
+        return this._src
     }
 
     set src(value) {
-        _src.set(this, value)
-        _innerAudioContext.get(this).src = value
+        this._src = value
+        _innerAudioContext[this._$sn].src = value
     }
 
     get loop() {
-        return _innerAudioContext.get(this).loop
+        return this._loop
     }
 
     set loop(value) {
-        _innerAudioContext.get(this).loop = value
+        this._loop = value
+        _innerAudioContext[this._$sn].loop = value
     }
 
     get autoplay() {
-        return _innerAudioContext.get(this).autoplay
+        return this._autoplay
     }
 
     set autoplay(value) {
-        _innerAudioContext.get(this).autoplay = value
+        this._autoplay = value
+        _innerAudioContext[this._$sn].autoplay = value
     }
 
     get paused() {
-        return _innerAudioContext.get(this).paused
+        return _innerAudioContext[this._$sn].paused
     }
 
     get volume() {
@@ -134,7 +139,7 @@ export default class Audio extends HTMLAudioElement {
     set volume(value) {
         this._volume = value;
         if (!this._muted) {
-            _innerAudioContext.get(this).volume = value;
+            _innerAudioContext[this._$sn].volume = value;
         }
     }
 
@@ -145,16 +150,16 @@ export default class Audio extends HTMLAudioElement {
     set muted(value) {
         this._muted = value;
         if (value) {
-            _innerAudioContext.get(this).volume = 0;
+            _innerAudioContext[this._$sn].volume = 0;
         } else {
-            _innerAudioContext.get(this).volume = this._volume;
+            _innerAudioContext[this._$sn].volume = this._volume;
         }
     }
 
     cloneNode() {
         const newAudio = new Audio()
-        newAudio.loop = _innerAudioContext.get(this).loop
-        newAudio.autoplay = _innerAudioContext.get(this).autoplay
+        newAudio.loop = this.loop
+        newAudio.autoplay = this.autoplay
         newAudio.src = this.src
         return newAudio
     }
