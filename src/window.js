@@ -103,7 +103,7 @@ const _clearTimeout = clearTimeout;
 const _setInterval = setInterval;
 const _clearInterval = clearInterval;
 const _requestAnimationFrame = requestAnimationFrame;
-const _cancelAnimationFrame = requestAnimationFrame;
+const _cancelAnimationFrame = cancelAnimationFrame;
 
 const document = null;
 const addEventListener = null;
