@@ -52,7 +52,7 @@ export default class Audio extends HTMLAudioElement {
 
         if (url) {
             this.src = url
-        }else{
+        } else {
             this._src = ''
         }
 
