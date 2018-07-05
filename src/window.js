@@ -104,8 +104,7 @@ const _setInterval = setInterval;
 const _clearInterval = clearInterval;
 const _requestAnimationFrame = requestAnimationFrame;
 const _cancelAnimationFrame = cancelAnimationFrame;
-
-const document = null;
+const _document = null;
 const addEventListener = null;
 const removeEventListener = null;
 const dispatchEvent = null;
@@ -125,8 +124,7 @@ export {
     _clearInterval as clearInterval,
     _requestAnimationFrame as requestAnimationFrame,
     _cancelAnimationFrame as cancelAnimationFrame,
-
-    document,
+    _document as document,
     addEventListener,
     removeEventListener,
     dispatchEvent,
