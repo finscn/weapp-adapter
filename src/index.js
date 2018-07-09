@@ -47,9 +47,8 @@ function inject() {
         for (const key in _window) {
             global[key] = _window[key]
         }
-        global.window = _window
-        window = global
-        window.top = window.parent = window
+        global.window = global
+        global.top = global.parent = global
     }
 }
 
