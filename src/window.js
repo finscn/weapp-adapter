@@ -104,10 +104,6 @@ const _setInterval = setInterval;
 const _clearInterval = clearInterval;
 const _requestAnimationFrame = requestAnimationFrame;
 const _cancelAnimationFrame = cancelAnimationFrame;
-// const _document = null;
-// const addEventListener = null;
-// const removeEventListener = null;
-/// const dispatchEvent = null;
 
 export {
     canvas,
@@ -123,9 +119,5 @@ export {
     _setInterval as setInterval,
     _clearInterval as clearInterval,
     _requestAnimationFrame as requestAnimationFrame,
-    _cancelAnimationFrame as cancelAnimationFrame,
-    // _document as document,
-    // addEventListener,
-    // removeEventListener,
-    // dispatchEvent,
+    _cancelAnimationFrame as cancelAnimationFrame
 }
