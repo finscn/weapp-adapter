@@ -22,20 +22,13 @@ export default class Audio extends HTMLAudioElement {
         this.HAVE_CURRENT_DATA = HAVE_CURRENT_DATA
         this.HAVE_FUTURE_DATA = HAVE_FUTURE_DATA
         this.HAVE_ENOUGH_DATA = HAVE_ENOUGH_DATA
-        this.readyState = HAVE_NOTHING
+
+        this.readyState = this.HAVE_NOTHING
 
         const innerAudioContext = wx.createInnerAudioContext()
 
         _innerAudioContext[this._$sn] = innerAudioContext
 
-        innerAudioContext.onCanplay(() => {
-            this.dispatchEvent({ type: 'load' })
-            this.dispatchEvent({ type: 'loadend' })
-            this.dispatchEvent({ type: 'canplay' })
-            this.dispatchEvent({ type: 'canplaythrough' })
-            this.dispatchEvent({ type: 'loadedmetadata' })
-            this.readyState = HAVE_CURRENT_DATA
-        })
         innerAudioContext.onPlay(() => {
             this.dispatchEvent({ type: 'play' })
         })
@@ -63,7 +56,8 @@ export default class Audio extends HTMLAudioElement {
     }
 
     load() {
-        console.warn('HTMLAudioElement.load() is not implemented.')
+        // console.warn('HTMLAudioElement.load() is not implemented.')
+        this._onLoad();
     }
 
     play() {
@@ -107,7 +101,30 @@ export default class Audio extends HTMLAudioElement {
 
     set src(value) {
         this._src = value
-        _innerAudioContext[this._$sn].src = value
+
+        const innerAudioContext = _innerAudioContext[this._$sn]
+
+        this._loaded = false;
+        this._firedCanplay = false;
+
+        innerAudioContext.onCanplay(() => {
+            this._loaded = true;
+            this._onLoad();
+        })
+        innerAudioContext.src = value
+    }
+
+    _onLoad() {
+        if (!this._loaded || this._firedCanplay) {
+            return;
+        }
+        this.dispatchEvent({ type: 'load' })
+        this.dispatchEvent({ type: 'loadend' })
+        this.dispatchEvent({ type: 'canplay' })
+        this.dispatchEvent({ type: 'canplaythrough' })
+        this.dispatchEvent({ type: 'loadedmetadata' })
+        this.readyState = this.HAVE_CURRENT_DATA
+        this._firedCanplay = true;
     }
 
     get loop() {
