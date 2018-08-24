@@ -6,7 +6,7 @@ const HAVE_CURRENT_DATA = 2
 const HAVE_FUTURE_DATA = 3
 const HAVE_ENOUGH_DATA = 4
 
-let SN_SEED = 1;
+let SN_SEED = 1
 
 const _innerAudioContext = {}
 
@@ -15,7 +15,7 @@ export default class Audio extends HTMLAudioElement {
     constructor(url) {
         super()
 
-        this._$sn = SN_SEED++;
+        this._$sn = SN_SEED++
 
         this.HAVE_NOTHING = HAVE_NOTHING
         this.HAVE_METADATA = HAVE_METADATA
@@ -42,7 +42,7 @@ export default class Audio extends HTMLAudioElement {
             this.readyState = this.HAVE_CURRENT_DATA
             this._canplayEvents.forEach((type) => {
                 this.dispatchEvent({ type: type })
-            });
+            })
         })
         innerAudioContext.onPlay(() => {
             this.dispatchEvent({ type: 'play' })
@@ -64,15 +64,15 @@ export default class Audio extends HTMLAudioElement {
             this._src = ''
         }
 
-        this._loop = innerAudioContext.loop;
-        this._autoplay = innerAudioContext.autoplay;
+        this._loop = innerAudioContext.loop
+        this._autoplay = innerAudioContext.autoplay
         this._volume = innerAudioContext.volume
-        this._muted = false;
+        this._muted = false
     }
 
     load() {
         // console.warn('HTMLAudioElement.load() is not implemented.')
-        // weixin doesn't need call load() manually;
+        // weixin doesn't need call load() manually
     }
 
     play() {
@@ -107,7 +107,7 @@ export default class Audio extends HTMLAudioElement {
     }
 
     get duration() {
-        return _innerAudioContext[this._$sn].duration;
+        return _innerAudioContext[this._$sn].duration
     }
 
     get src() {
@@ -116,7 +116,8 @@ export default class Audio extends HTMLAudioElement {
 
     set src(value) {
         this._src = value
-        this._loaded = false;
+        this._loaded = false
+        this.readyState = this.HAVE_NOTHING
 
         const innerAudioContext = _innerAudioContext[this._$sn]
 
@@ -124,7 +125,7 @@ export default class Audio extends HTMLAudioElement {
     }
 
     _afterAddEventListener(type, listener, options, events) {
-        type = String(type).toLowerCase();
+        type = String(type).toLowerCase()
 
         if (this._loaded && this._canplayEvents.indexOf(type) !== -1) {
             this.dispatchEvent({ type: type })
@@ -154,26 +155,26 @@ export default class Audio extends HTMLAudioElement {
     }
 
     get volume() {
-        return this._volume;
+        return this._volume
     }
 
     set volume(value) {
-        this._volume = value;
+        this._volume = value
         if (!this._muted) {
-            _innerAudioContext[this._$sn].volume = value;
+            _innerAudioContext[this._$sn].volume = value
         }
     }
 
     get muted() {
-        return this._muted;
+        return this._muted
     }
 
     set muted(value) {
-        this._muted = value;
+        this._muted = value
         if (value) {
-            _innerAudioContext[this._$sn].volume = 0;
+            _innerAudioContext[this._$sn].volume = 0
         } else {
-            _innerAudioContext[this._$sn].volume = this._volume;
+            _innerAudioContext[this._$sn].volume = this._volume
         }
     }
 
