@@ -26,19 +26,35 @@ export default class EventTarget {
         if (options.passive) {
             // console.warn('EventTarget.addEventListener: options.passive is not implemented.')
         }
+
+        this._afterAddEventListener(type, listener, options, events)
     }
 
-    removeEventListener(type, listener) {
-        const listeners = _events.get(this)[type]
+    _afterAddEventListener(type, listener, options, events) {
+        // do nothing
+    }
 
-        if (listeners && listeners.length > 0) {
-            for (let i = listeners.length; i--; i > 0) {
-                if (listeners[i] === listener) {
-                    listeners.splice(i, 1)
-                    break
+    removeEventListener(type, listener, options = {}) {
+        const events = _events.get(this)
+
+        if (events) {
+            const listeners = events[type]
+
+            if (listeners && listeners.length > 0) {
+                for (let i = listeners.length; i--; i > 0) {
+                    if (listeners[i] === listener) {
+                        listeners.splice(i, 1)
+                        break
+                    }
                 }
             }
         }
+
+        this._afterRemoveEventListener(type, listener, options, events);
+    }
+
+    _afterRemoveEventListener(type, listener, options, events) {
+        // do nothing
     }
 
     dispatchEvent(event = {}) {

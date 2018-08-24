@@ -29,6 +29,21 @@ export default class Audio extends HTMLAudioElement {
 
         _innerAudioContext[this._$sn] = innerAudioContext
 
+        this._canplayEvents = [
+            'load',
+            'loadend',
+            'canplay',
+            'canplaythrough',
+            'loadedmetadata'
+        ]
+
+        innerAudioContext.onCanplay(() => {
+            this._loaded = true
+            this.readyState = this.HAVE_CURRENT_DATA
+            this._canplayEvents.forEach((type) => {
+                this.dispatchEvent({ type: type })
+            });
+        })
         innerAudioContext.onPlay(() => {
             this.dispatchEvent({ type: 'play' })
         })
@@ -57,7 +72,7 @@ export default class Audio extends HTMLAudioElement {
 
     load() {
         // console.warn('HTMLAudioElement.load() is not implemented.')
-        this._onLoad();
+        // weixin doesn't need call load() manually;
     }
 
     play() {
@@ -101,30 +116,19 @@ export default class Audio extends HTMLAudioElement {
 
     set src(value) {
         this._src = value
+        this._loaded = false;
 
         const innerAudioContext = _innerAudioContext[this._$sn]
 
-        this._loaded = false;
-        this._firedCanplay = false;
-
-        innerAudioContext.onCanplay(() => {
-            this._loaded = true;
-            this._onLoad();
-        })
         innerAudioContext.src = value
     }
 
-    _onLoad() {
-        if (!this._loaded || this._firedCanplay) {
-            return;
+    _afterAddEventListener(type, listener, options, events) {
+        type = String(type).toLowerCase();
+
+        if (this._loaded && this._canplayEvents.indexOf(type) !== -1) {
+            this.dispatchEvent({ type: type })
         }
-        this.dispatchEvent({ type: 'load' })
-        this.dispatchEvent({ type: 'loadend' })
-        this.dispatchEvent({ type: 'canplay' })
-        this.dispatchEvent({ type: 'canplaythrough' })
-        this.dispatchEvent({ type: 'loadedmetadata' })
-        this.readyState = this.HAVE_CURRENT_DATA
-        this._firedCanplay = true;
     }
 
     get loop() {
