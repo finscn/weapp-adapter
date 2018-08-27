@@ -11,7 +11,7 @@ export default class Audio extends HTMLAudioElement {
 
         this._$sn = SN_SEED++
 
-            this.readyState = Audio.HAVE_NOTHING
+        this.readyState = Audio.HAVE_NOTHING
 
         const innerAudioContext = wx.createInnerAudioContext()
 
@@ -144,7 +144,7 @@ export default class Audio extends HTMLAudioElement {
     }
 
     get autoplay() {
-        return this.autoplay
+        return this._autoplay
     }
 
     set autoplay(value) {
