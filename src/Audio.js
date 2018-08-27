@@ -1,11 +1,5 @@
 import HTMLAudioElement from './HTMLAudioElement'
 
-const HAVE_NOTHING = 0
-const HAVE_METADATA = 1
-const HAVE_CURRENT_DATA = 2
-const HAVE_FUTURE_DATA = 3
-const HAVE_ENOUGH_DATA = 4
-
 let SN_SEED = 1
 
 const _innerAudioContextMap = {}
@@ -15,15 +9,9 @@ export default class Audio extends HTMLAudioElement {
   constructor(url) {
     super()
 
-    this._$sn = SN_SEED++;
+    this._$sn = SN_SEED++
 
-    this.HAVE_NOTHING = HAVE_NOTHING
-    this.HAVE_METADATA = HAVE_METADATA
-    this.HAVE_CURRENT_DATA = HAVE_CURRENT_DATA
-    this.HAVE_FUTURE_DATA = HAVE_FUTURE_DATA
-    this.HAVE_ENOUGH_DATA = HAVE_ENOUGH_DATA
-
-    this.readyState = HAVE_NOTHING
+    this.readyState = Audio.HAVE_NOTHING
 
     const innerAudioContext = wx.createInnerAudioContext()
 
@@ -39,7 +27,7 @@ export default class Audio extends HTMLAudioElement {
 
     innerAudioContext.onCanplay(() => {
       this._loaded = true
-      this.readyState = this.HAVE_CURRENT_DATA
+      this.readyState = Audio.HAVE_CURRENT_DATA
       this._canplayEvents.forEach((type) => {
           this.dispatchEvent({ type: type })
       })
@@ -57,7 +45,7 @@ export default class Audio extends HTMLAudioElement {
       if (_innerAudioContextMap[this._$sn].loop === false) {
           this.dispatchEvent({ type: 'ended' })
       }
-      this.readyState = HAVE_ENOUGH_DATA
+      this.readyState = Audio.HAVE_ENOUGH_DATA
     })
     innerAudioContext.onError(() => {
       this._paused = _innerAudioContextMap[this._$sn].paused
@@ -74,7 +62,7 @@ export default class Audio extends HTMLAudioElement {
     this._autoplay = innerAudioContext.autoplay
     this._paused = innerAudioContext.paused
     this._volume = innerAudioContext.volume
-    this._muted = false;
+    this._muted = false
   }
 
   addEventListener(type, listener, options = {}) {
@@ -138,7 +126,7 @@ export default class Audio extends HTMLAudioElement {
   set src(value) {
     this._src = value
     this._loaded = false
-    this.readyState = this.HAVE_NOTHING
+    this.readyState = Audio.HAVE_NOTHING
 
     const innerAudioContext = _innerAudioContextMap[this._$sn]
 
@@ -164,30 +152,30 @@ export default class Audio extends HTMLAudioElement {
   }
 
   get paused() {
-    return this._paused;
+    return this._paused
   }
 
   get volume() {
-    return this._volume;
+    return this._volume
   }
 
   set volume(value) {
-    this._volume = value;
+    this._volume = value
     if (!this._muted) {
-      _innerAudioContextMap[this._$sn].volume = value;
+      _innerAudioContextMap[this._$sn].volume = value
     }
   }
 
   get muted() {
-    return this._muted;
+    return this._muted
   }
 
   set muted(value) {
-    this._muted = value;
+    this._muted = value
     if (value) {
-      _innerAudioContextMap[this._$sn].volume = 0;
+      _innerAudioContextMap[this._$sn].volume = 0
     } else {
-      _innerAudioContextMap[this._$sn].volume = this._volume;
+      _innerAudioContextMap[this._$sn].volume = this._volume
     }
   }
 
@@ -199,3 +187,9 @@ export default class Audio extends HTMLAudioElement {
     return newAudio
   }
 }
+
+Audio.HAVE_NOTHING = 0
+Audio.HAVE_METADATA = 1
+Audio.HAVE_CURRENT_DATA = 2
+Audio.HAVE_FUTURE_DATA = 3
+Audio.HAVE_ENOUGH_DATA = 4
