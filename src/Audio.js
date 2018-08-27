@@ -6,186 +6,187 @@ const _innerAudioContextMap = {}
 
 export default class Audio extends HTMLAudioElement {
 
-  constructor(url) {
-    super()
+    constructor(url) {
+        super()
 
-    this._$sn = SN_SEED++
+        this._$sn = SN_SEED++
 
-    this.readyState = Audio.HAVE_NOTHING
+            this.readyState = Audio.HAVE_NOTHING
 
-    const innerAudioContext = wx.createInnerAudioContext()
+        const innerAudioContext = wx.createInnerAudioContext()
 
-    _innerAudioContextMap[this._$sn] = innerAudioContext
+        _innerAudioContextMap[this._$sn] = innerAudioContext
 
-    this._canplayEvents = [
-      'load',
-      'loadend',
-      'canplay',
-      'canplaythrough',
-      'loadedmetadata'
-    ]
+        this._canplayEvents = [
+            'load',
+            'loadend',
+            'canplay',
+            'canplaythrough',
+            'loadedmetadata'
+        ]
 
-    innerAudioContext.onCanplay(() => {
-      this._loaded = true
-      this.readyState = Audio.HAVE_CURRENT_DATA
-      this._canplayEvents.forEach((type) => {
-          this.dispatchEvent({ type: type })
-      })
-    })
-    innerAudioContext.onPlay(() => {
-      this._paused = _innerAudioContextMap[this._$sn].paused
-      this.dispatchEvent({ type: 'play' })
-    })
-    innerAudioContext.onPause(() => {
-      this._paused = _innerAudioContextMap[this._$sn].paused
-      this.dispatchEvent({ type: 'pause' })
-    })
-    innerAudioContext.onEnded(() => {
-      this._paused = _innerAudioContextMap[this._$sn].paused
-      if (_innerAudioContextMap[this._$sn].loop === false) {
-          this.dispatchEvent({ type: 'ended' })
-      }
-      this.readyState = Audio.HAVE_ENOUGH_DATA
-    })
-    innerAudioContext.onError(() => {
-      this._paused = _innerAudioContextMap[this._$sn].paused
-      this.dispatchEvent({ type: 'error' })
-    })
+        innerAudioContext.onCanplay(() => {
+            this._loaded = true
+            this.readyState = Audio.HAVE_CURRENT_DATA
 
-    if (url) {
-      this.src = url
-    } else {
-        this._src = ''
+            this._canplayEvents.forEach((type) => {
+                this.dispatchEvent({ type: type })
+            })
+        })
+        innerAudioContext.onPlay(() => {
+            this._paused = _innerAudioContextMap[this._$sn].paused
+            this.dispatchEvent({ type: 'play' })
+        })
+        innerAudioContext.onPause(() => {
+            this._paused = _innerAudioContextMap[this._$sn].paused
+            this.dispatchEvent({ type: 'pause' })
+        })
+        innerAudioContext.onEnded(() => {
+            this._paused = _innerAudioContextMap[this._$sn].paused
+            if (_innerAudioContextMap[this._$sn].loop === false) {
+                this.dispatchEvent({ type: 'ended' })
+            }
+            this.readyState = Audio.HAVE_ENOUGH_DATA
+        })
+        innerAudioContext.onError(() => {
+            this._paused = _innerAudioContextMap[this._$sn].paused
+            this.dispatchEvent({ type: 'error' })
+        })
+
+        if (url) {
+            this.src = url
+        } else {
+            this._src = ''
+        }
+
+        this._loop = innerAudioContext.loop
+        this._autoplay = innerAudioContext.autoplay
+        this._paused = innerAudioContext.paused
+        this._volume = innerAudioContext.volume
+        this._muted = false
     }
 
-    this._loop = innerAudioContext.loop
-    this._autoplay = innerAudioContext.autoplay
-    this._paused = innerAudioContext.paused
-    this._volume = innerAudioContext.volume
-    this._muted = false
-  }
+    addEventListener(type, listener, options = {}) {
+        type = String(type).toLowerCase()
 
-  addEventListener(type, listener, options = {}) {
-    super.addEventListener(type, listener, options)
+        super.addEventListener(type, listener, options)
 
-    type = String(type).toLowerCase()
-
-    if (this._loaded && this._canplayEvents.indexOf(type) !== -1) {
-        this.dispatchEvent({ type: type })
-    }
-  }
-
-  load() {
-    // console.warn('HTMLAudioElement.load() is not implemented.')
-    // weixin doesn't need call load() manually
-  }
-
-  play() {
-    _innerAudioContextMap[this._$sn].play()
-  }
-
-  resume() {
-    _innerAudioContextMap[this._$sn].resume()
-  }
-
-  pause() {
-    _innerAudioContextMap[this._$sn].pause()
-  }
-
-  destroy() {
-    _innerAudioContextMap[this._$sn].destroy()
-  }
-
-  canPlayType(mediaType = '') {
-    if (typeof mediaType !== 'string') {
-      return ''
+        if (this._loaded && this._canplayEvents.indexOf(type) !== -1) {
+            this.dispatchEvent({ type: type })
+        }
     }
 
-    if (mediaType.indexOf('audio/mpeg') > -1 || mediaType.indexOf('audio/mp4')) {
-      return 'probably'
+    load() {
+        // console.warn('HTMLAudioElement.load() is not implemented.')
+        // weixin doesn't need call load() manually
     }
-    return ''
-  }
 
-  get currentTime() {
-    return _innerAudioContextMap[this._$sn].currentTime
-  }
-
-  set currentTime(value) {
-    _innerAudioContextMap[this._$sn].seek(value)
-  }
-
-  get duration () {
-    return _innerAudioContextMap[this._$sn].duration
-  }
-
-  get src() {
-    return this._src
-  }
-
-  set src(value) {
-    this._src = value
-    this._loaded = false
-    this.readyState = Audio.HAVE_NOTHING
-
-    const innerAudioContext = _innerAudioContextMap[this._$sn]
-
-    innerAudioContext.src = value
-  }
-
-  get loop() {
-    return this._loop
-  }
-
-  set loop(value) {
-    this._loop = value
-    _innerAudioContextMap[this._$sn].loop = value
-  }
-
-  get autoplay() {
-    return this.autoplay
-  }
-
-  set autoplay(value) {
-    this._autoplay = value
-    _innerAudioContextMap[this._$sn].autoplay = value
-  }
-
-  get paused() {
-    return this._paused
-  }
-
-  get volume() {
-    return this._volume
-  }
-
-  set volume(value) {
-    this._volume = value
-    if (!this._muted) {
-      _innerAudioContextMap[this._$sn].volume = value
+    play() {
+        _innerAudioContextMap[this._$sn].play()
     }
-  }
 
-  get muted() {
-    return this._muted
-  }
-
-  set muted(value) {
-    this._muted = value
-    if (value) {
-      _innerAudioContextMap[this._$sn].volume = 0
-    } else {
-      _innerAudioContextMap[this._$sn].volume = this._volume
+    resume() {
+        _innerAudioContextMap[this._$sn].resume()
     }
-  }
 
-  cloneNode() {
-    const newAudio = new Audio()
-    newAudio.loop = this.loop
-    newAudio.autoplay = this.autoplay
-    newAudio.src = this.src
-    return newAudio
-  }
+    pause() {
+        _innerAudioContextMap[this._$sn].pause()
+    }
+
+    destroy() {
+        _innerAudioContextMap[this._$sn].destroy()
+    }
+
+    canPlayType(mediaType = '') {
+        if (typeof mediaType !== 'string') {
+            return ''
+        }
+
+        if (mediaType.indexOf('audio/mpeg') > -1 || mediaType.indexOf('audio/mp4')) {
+            return 'probably'
+        }
+        return ''
+    }
+
+    get currentTime() {
+        return _innerAudioContextMap[this._$sn].currentTime
+    }
+
+    set currentTime(value) {
+        _innerAudioContextMap[this._$sn].seek(value)
+    }
+
+    get duration() {
+        return _innerAudioContextMap[this._$sn].duration
+    }
+
+    get src() {
+        return this._src
+    }
+
+    set src(value) {
+        this._src = value
+        this._loaded = false
+        this.readyState = Audio.HAVE_NOTHING
+
+        const innerAudioContext = _innerAudioContextMap[this._$sn]
+
+        innerAudioContext.src = value
+    }
+
+    get loop() {
+        return this._loop
+    }
+
+    set loop(value) {
+        this._loop = value
+        _innerAudioContextMap[this._$sn].loop = value
+    }
+
+    get autoplay() {
+        return this.autoplay
+    }
+
+    set autoplay(value) {
+        this._autoplay = value
+        _innerAudioContextMap[this._$sn].autoplay = value
+    }
+
+    get paused() {
+        return this._paused
+    }
+
+    get volume() {
+        return this._volume
+    }
+
+    set volume(value) {
+        this._volume = value
+        if (!this._muted) {
+            _innerAudioContextMap[this._$sn].volume = value
+        }
+    }
+
+    get muted() {
+        return this._muted
+    }
+
+    set muted(value) {
+        this._muted = value
+        if (value) {
+            _innerAudioContextMap[this._$sn].volume = 0
+        } else {
+            _innerAudioContextMap[this._$sn].volume = this._volume
+        }
+    }
+
+    cloneNode() {
+        const newAudio = new Audio()
+        newAudio.loop = this.loop
+        newAudio.autoplay = this.autoplay
+        newAudio.src = this.src
+        return newAudio
+    }
 }
 
 Audio.HAVE_NOTHING = 0
