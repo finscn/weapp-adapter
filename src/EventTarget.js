@@ -26,12 +26,6 @@ export default class EventTarget {
         if (options.passive) {
             // console.warn('EventTarget.addEventListener: options.passive is not implemented.')
         }
-
-        this._afterAddEventListener(type, listener, options, events)
-    }
-
-    _afterAddEventListener(type, listener, options, events) {
-        // do nothing
     }
 
     removeEventListener(type, listener, options = {}) {
@@ -49,12 +43,6 @@ export default class EventTarget {
                 }
             }
         }
-
-        this._afterRemoveEventListener(type, listener, options, events);
-    }
-
-    _afterRemoveEventListener(type, listener, options, events) {
-        // do nothing
     }
 
     dispatchEvent(event = {}) {
