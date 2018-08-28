@@ -23,6 +23,7 @@ export { default as WebGLRenderingContext } from './WebGLRenderingContext'
 export { TouchEvent, PointerEvent, MouseEvent } from './EventIniter/index.js'
 export { default as localStorage } from './localStorage'
 export { default as location } from './location'
+export { btoa, atob } from './Base64.js'
 export * from './WindowProperties'
 
 const { platform } = wx.getSystemInfoSync()
