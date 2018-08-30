@@ -11,9 +11,10 @@ InvalidCharacterError.prototype.name = 'InvalidCharacterError';
 
 function btoa(input) {
     let str = String(input);
+    let output = '';
     for (
         // initialize result and counter
-        let block, charCode, idx = 0, map = chars, output = '';
+        let block, charCode, idx = 0, map = chars;
         // if the next str index does not exist:
         //   change the mapping table to "="
         //   check if d has no fractional digits
