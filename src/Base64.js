@@ -37,9 +37,10 @@ function atob(input) {
     if (str.length % 4 === 1) {
         throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
     }
+    let output = '';
     for (
         // initialize result and counters
-        let bc = 0, bs, buffer, idx = 0, output = '';
+        let bc = 0, bs, buffer, idx = 0;
         // get next character
         buffer = str.charAt(idx++);
         // character found in table? initialize bit storage and add its ascii value;
