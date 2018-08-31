@@ -9,7 +9,7 @@ export default class Audio extends HTMLAudioElement {
     constructor(url) {
         super()
 
-        this._$sn = SN_SEED++
+        this._$sn = SN_SEED++;
 
         this.readyState = Audio.HAVE_NOTHING
 
@@ -182,6 +182,7 @@ export default class Audio extends HTMLAudioElement {
 
     cloneNode() {
         const newAudio = new Audio()
+        newAudio._cloned = true
         newAudio.loop = this.loop
         newAudio.autoplay = this.autoplay
         newAudio.src = this.src
