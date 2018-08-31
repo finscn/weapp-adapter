@@ -182,7 +182,6 @@ export default class Audio extends HTMLAudioElement {
 
     cloneNode() {
         const newAudio = new Audio()
-        newAudio._cloned = true
         newAudio.loop = this.loop
         newAudio.autoplay = this.autoplay
         newAudio.src = this.src
