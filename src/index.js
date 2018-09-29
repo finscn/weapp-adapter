@@ -43,7 +43,9 @@ function inject() {
             }
         }
         window.parent = window
+        window.wx = wx
     } else {
+        _window.wx = wx;
         for (const key in _window) {
             global[key] = _window[key]
         }
