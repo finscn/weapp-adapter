@@ -173,7 +173,11 @@ function onVisibilityChange(visible) {
     }
 }
 
-wx.onHide(onVisibilityChange(false));
-wx.onShow(onVisibilityChange(true));
+if (wx.onHide) {
+    wx.onHide(onVisibilityChange(false));
+}
+if (wx.onShow) {
+    wx.onShow(onVisibilityChange(true));
+}
 
 export default document

@@ -6,8 +6,6 @@ const _requestHeader = new WeakMap()
 const _responseHeader = new WeakMap()
 const _requestTask = new WeakMap()
 
-const fs = wx.getFileSystemManager()
-
 function _triggerEvent(type, event = {}) {
     event.target = event.target || this
 
@@ -164,6 +162,8 @@ export default class XMLHttpRequest extends EventTarget {
             }
 
             if (relative) {
+                const fs = wx.getFileSystemManager();
+
                 var options = {
                     'filePath': url,
                     'success': onSuccess,

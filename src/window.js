@@ -66,7 +66,7 @@ function focus() {}
 function blur() {}
 
 if (platform !== 'devtools') {
-    const wxPerf = wx.getPerformance();
+    const wxPerf = wx.getPerformance ? wx.getPerformance() : Date;
     const consoleTimers = {};
     console.time = function(name) {
         consoleTimers[name] = wxPerf.now();
@@ -97,7 +97,9 @@ function eventHandlerFactory() {
     }
 }
 
-wx.onWindowResize(eventHandlerFactory())
+if (wx.onWindowResize) {
+    wx.onWindowResize(eventHandlerFactory())
+}
 
 const _setTimeout = setTimeout;
 const _clearTimeout = clearTimeout;
