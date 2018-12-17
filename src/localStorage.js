@@ -16,15 +16,29 @@ const localStorage = {
     },
 
     setItem(key, value) {
+        if (window.asyncStorage) {
+            return wx.setStorage({
+                key: key,
+                data: value
+            })
+        }
         return wx.setStorageSync(key, value)
     },
 
     removeItem(key) {
-        wx.removeStorageSync(key)
+        if (window.asyncStorage) {
+            return wx.removeStorage({
+                key: key
+            })
+        }
+        return wx.removeStorageSync(key)
     },
 
     clear() {
-        wx.clearStorageSync()
+        if (window.asyncStorage) {
+            return wx.clearStorage()
+        }
+        return wx.clearStorageSync()
     }
 }
 
