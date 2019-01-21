@@ -8,7 +8,7 @@ export default class HTMLElement extends Element {
         super()
 
         this.className = ''
-        this.childern = []
+        this.children = []
 
         this.focus = noop
         this.blur = noop
