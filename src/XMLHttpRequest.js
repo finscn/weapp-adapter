@@ -1,7 +1,5 @@
 import EventTarget from './EventTarget.js'
 
-const _url = new WeakMap()
-const _method = new WeakMap()
 const _requestHeader = new WeakMap()
 const _responseHeader = new WeakMap()
 const _requestTask = new WeakMap()
@@ -46,7 +44,8 @@ export default class XMLHttpRequest extends EventTarget {
         this.readyState = 0
         this.response = null
         this.responseText = null
-        this.responseType = ''
+        this.responseType = 'text'
+        this.dataType = 'string'
         this.responseXML = null
         this.status = 0
         this.statusText = ''
@@ -80,8 +79,8 @@ export default class XMLHttpRequest extends EventTarget {
     }
 
     open(method, url /* async, user, password 这几个参数在小程序内不支持*/ ) {
-        _method.set(this, method)
-        _url.set(this, url)
+        this._method = method
+        this._url = url
         _changeReadyState.call(this, XMLHttpRequest.OPENED)
     }
 
@@ -91,9 +90,10 @@ export default class XMLHttpRequest extends EventTarget {
         if (this.readyState !== XMLHttpRequest.OPENED) {
             throw new Error("Failed to execute 'send' on 'XMLHttpRequest': The object's state must be OPENED.")
         } else {
-            const url = _url.get(this)
+            const url = this._url
             const header = _requestHeader.get(this)
             const responseType = this.responseType
+            const dataType = this.dataType
 
             const relative = _isRelativePath(url)
             let encoding;
@@ -179,8 +179,9 @@ export default class XMLHttpRequest extends EventTarget {
             wx.request({
                 data,
                 url: url,
-                method: _method.get(this),
+                method: this._method,
                 header: header,
+                dataType: dataType,
                 responseType: responseType,
                 success: onSuccess,
                 fail: onFail
