@@ -25,6 +25,7 @@ export { TouchEvent, PointerEvent, MouseEvent } from './EventIniter/index.js'
 export { default as localStorage } from './localStorage'
 export { default as location } from './location'
 export { btoa, atob } from './Base64.js'
+export { default as Symbol } from './Symbol'
 export * from './WindowProperties'
 
 const { platform } = wx.getSystemInfoSync()
